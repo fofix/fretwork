@@ -180,6 +180,6 @@ setup(name='fretwork',
             'Programming Language :: Python :: 2.7',
         ],
         keywords='music engine fofix frets game',
-        install_requires=['Pillow', 'cython', 'pygame', 'OpenGL', 'numpy'],
+        install_requires=['Pillow', 'cython', 'pygame', 'pyopengl', 'numpy'],
         ext_modules=cythonize(mixstreamExt)
      )
