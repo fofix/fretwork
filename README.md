@@ -15,9 +15,9 @@ For linux download the source from the releases page then run the following comm
 `pip install fretwork-0.1.1.zip`
 
 You will need a c compiler, and the following dependancies(there may be more in future releases):
-glib
-sdl 1.2
-sdl_mixer 1.2
-libogg
-libvorbisfile
-libtheora
+* `glib`
+* `sdl 1.2`
+* `sdl_mixer 1.2`
+* `libogg`
+* `libvorbisfile`
+* `libtheora`
