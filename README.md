@@ -12,6 +12,7 @@ Installation on windows is fairly simple. Download the latest release wheel from
 
 
 For linux download the source from the releases page then run the following command:
+
 `pip install fretwork-0.1.1.zip`
 
 You will need a c compiler, and the following dependancies(there may be more in future releases):
