@@ -169,7 +169,7 @@ setup(name='fretwork',
         author_email='matthewsitton@gmail.com',
         license='GPLv2+',
         url='https://github.com/fofix',
-        packages=['fretwork', 'fretwork.mixstream'],
+        packages=['fretwork', 'fretwork.mixstream', 'fretwork.midi'],
         classifiers=[
             'Development Status :: 2 - Pre-Alpha',
             'Intended Audience :: Developers',
