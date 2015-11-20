@@ -23,7 +23,7 @@ var/
 .installed.cfg
 *.egg
 
-fretwork/_mixstream/_MixStream.c
+fretwork/mixstream/_MixStream.c
 
 win32/*
 !win32/README.md
