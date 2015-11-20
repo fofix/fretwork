@@ -1,4 +1,4 @@
-/* Frets on Fire X (FoFiX)
+/* Fretwork
  * Copyright (C) 2012 FoFiX Team
  *               2012 John Stumpo
  *

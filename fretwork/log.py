@@ -1,6 +1,4 @@
 #####################################################################
-# -*- coding: iso-8859-1 -*-                                        #
-#                                                                   #
 # Fretwork                                                          #
 # Copyright (C) 2009-2015 FoFiX Team                                #
 #               2009 John Stumpo                                    #
@@ -68,7 +66,7 @@ else:
 
 def _init_logging():
     global _old_showwarning, _initTime
-    
+
     _old_showwarning = warnings.showwarning
     warnings.showwarning = _showwarning
 

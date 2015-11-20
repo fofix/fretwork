@@ -1,7 +1,5 @@
 #####################################################################
-# -*- coding: iso-8859-1 -*-                                        #
-#                                                                   #
-# Frets on Fire X (FoFiX)                                           #
+# Fretwork                                                          #
 # Copyright (C) 2011-2012 FoFiX Team                                #
 #               2011-2012 John Stumpo                               #
 #                                                                   #
