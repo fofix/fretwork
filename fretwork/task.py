@@ -89,6 +89,11 @@ class TaskEngine(object):
         task.run(tick)
         self.currentTask = None
 
+    def exit():
+        '''Remove all tasks.'''
+        for taskData in list(self.tasks):
+            self.removeTask(taskData['task'])
+
     def run(self):
         '''Run one cycle of the task scheduler engine.'''
         if not self.tasks:
