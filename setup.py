@@ -26,6 +26,8 @@ import sys, os, glob
 import subprocess
 import shlex
 
+from fretwork.version import version_number
+
 
 def find_command(cmd):
     '''Find a program on the PATH, or, on win32, in the dependency pack.'''
@@ -163,7 +165,7 @@ mixstreamExt = Extension('fretwork.mixstream._MixStream', mixstreamSource,
     **combine_info(vorbisfile_info, soundtouch_info, glib_info, gthread_info, sdl_info, sdl_mixer_info))
 
 setup(name='fretwork',
-        version='0.1.1',
+        version=version_number,
         description='Game library used by FoFiX, and FoF:R.',
         author='Matthew Sitton',
         author_email='matthewsitton@gmail.com',
