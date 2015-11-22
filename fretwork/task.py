@@ -89,7 +89,7 @@ class TaskEngine(object):
         task.run(tick)
         self.currentTask = None
 
-    def exit():
+    def exit(self):
         '''Remove all tasks.'''
         for taskData in list(self.tasks):
             self.removeTask(taskData['task'])
