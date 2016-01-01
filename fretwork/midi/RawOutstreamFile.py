@@ -9,7 +9,7 @@ from cStringIO import StringIO
 # custom import
 from DataTypeConverters import writeBew, writeVar, fromBytes
 
-class RawOutstreamFile:
+class RawOutstreamFile(object):
 
     """
 

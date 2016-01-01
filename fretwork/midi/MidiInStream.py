@@ -2,7 +2,7 @@
 
 from MidiOutStream import MidiOutStream
 
-class MidiInStream:
+class MidiInStream(object):
 
     """
     Takes midi events from the midi input and calls the apropriate

@@ -17,7 +17,7 @@ class MidiOutFile(MidiOutStream):
     def __init__(self, raw_out=''):
 
         self.raw_out = RawOutstreamFile(raw_out)
-        MidiOutStream.__init__(self)
+        super(MidiOutFile, self).__init__(self)
 
 
     def write(self):

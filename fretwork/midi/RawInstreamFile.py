@@ -8,7 +8,7 @@ from struct import unpack
 from DataTypeConverters import readBew, readVar, varLen
 
 
-class RawInstreamFile:
+class RawInstreamFile(object):
 
     """
 

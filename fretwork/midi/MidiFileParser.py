@@ -9,7 +9,7 @@ from constants import *
 
 from EventDispatcher import EventDispatcher
 
-class MidiFileParser:
+class MidiFileParser(object):
 
     """
 

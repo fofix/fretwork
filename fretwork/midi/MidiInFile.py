@@ -4,7 +4,7 @@ from RawInstreamFile import RawInstreamFile
 from MidiFileParser import MidiFileParser
 
 
-class MidiInFile:
+class MidiInFile(object):
 
     """
 
