@@ -99,10 +99,10 @@ if __name__ == '__main__':
 
     test_file = 'test/midifiles/minimal.mid'
     fis = RawInstreamFile(test_file)
-    print fis.nextSlice(len(fis.data))
+    print(fis.nextSlice(len(fis.data)))
 
     test_file = 'test/midifiles/cubase-minimal.mid'
     cubase_minimal = open(test_file, 'rb')
     fis2 = RawInstreamFile(cubase_minimal)
-    print fis2.nextSlice(len(fis2.data))
+    print(fis2.nextSlice(len(fis2.data)))
     cubase_minimal.close()

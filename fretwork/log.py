@@ -89,8 +89,8 @@ def _log(cls, msg):
     msg = utf8(msg)
     timeprefix = "[%12.6f] " % (time.time() - _initTime)
     if not quiet:
-        print timeprefix + displaylabels[cls] + " " + msg
-    print >>logFile, timeprefix + labels[cls] + " " + msg
+        print(timeprefix + displaylabels[cls] + " " + msg)
+    print(timeprefix + labels[cls] + " " + msg, file=logFile)
     logFile.flush()  #stump: truncated logfiles be gone!
 
 
