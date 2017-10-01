@@ -1,4 +1,5 @@
-# -*- coding: ISO-8859-1 -*-
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 
 from DataTypeConverters import readBew, readVar, varLen
 
