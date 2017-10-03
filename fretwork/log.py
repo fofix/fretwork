@@ -1,3 +1,6 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
 #####################################################################
 # Fretwork                                                          #
 # Copyright (C) 2009-2015 FoFiX Team                                #
@@ -24,6 +27,7 @@
 Functions for writing to the logfile.
 '''
 
+from __future__ import print_function
 import os
 import sys
 import time
@@ -89,8 +93,8 @@ def _log(cls, msg):
     msg = utf8(msg)
     timeprefix = "[%12.6f] " % (time.time() - _initTime)
     if not quiet:
-        print timeprefix + displaylabels[cls] + " " + msg
-    print >>logFile, timeprefix + labels[cls] + " " + msg
+        print(timeprefix + displaylabels[cls] + " " + msg)
+    print(timeprefix + labels[cls] + " " + msg, file=logFile)
     logFile.flush()  #stump: truncated logfiles be gone!
 
 

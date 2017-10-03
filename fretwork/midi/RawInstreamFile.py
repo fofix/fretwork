@@ -1,21 +1,14 @@
-# -*- coding: ISO-8859-1 -*-
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 
-# standard library imports
-from types import StringType
-from struct import unpack
-
-# custom import
 from DataTypeConverters import readBew, readVar, varLen
 
 
 class RawInstreamFile(object):
-
     """
-
     It parses and reads data from an input file. It takes care of big
     endianess, and keeps track of the cursor position. The midi parser
     only reads from this object. Never directly from the file.
-
     """
 
     def __init__(self, infile=''):
@@ -40,31 +33,23 @@ class RawInstreamFile(object):
         # start at beginning ;-)
         self.cursor = 0
 
-
-    # setting up data manually
-
     def setData(self, data=''):
         "Sets the data from a string."
         self.data = data
-
-    # cursor operations
 
     def setCursor(self, position=0):
         "Sets the absolute position if the cursor"
         self.cursor = position
 
-
     def getCursor(self):
         "Returns the value of the cursor"
         return self.cursor
-
 
     def moveCursor(self, relative_position=0):
         "Moves the cursor to a new relative position"
         self.cursor += relative_position
 
     # native data reading functions
-
     def nextSlice(self, length, move_cursor=1):
         "Reads the next text slice from the raw data, with length"
         c = self.cursor
@@ -73,14 +58,12 @@ class RawInstreamFile(object):
             self.moveCursor(length)
         return slc
 
-
     def readBew(self, n_bytes=1, move_cursor=1):
         """
         Reads n bytes of date from the current cursor position.
         Moves cursor if move_cursor is true
         """
         return readBew(self.nextSlice(n_bytes, move_cursor))
-
 
     def readVarLen(self):
         """
@@ -94,15 +77,14 @@ class RawInstreamFile(object):
         return var
 
 
-
 if __name__ == '__main__':
 
     test_file = 'test/midifiles/minimal.mid'
     fis = RawInstreamFile(test_file)
-    print fis.nextSlice(len(fis.data))
+    print(fis.nextSlice(len(fis.data)))
 
     test_file = 'test/midifiles/cubase-minimal.mid'
     cubase_minimal = open(test_file, 'rb')
     fis2 = RawInstreamFile(cubase_minimal)
-    print fis2.nextSlice(len(fis2.data))
+    print(fis2.nextSlice(len(fis2.data)))
     cubase_minimal.close()

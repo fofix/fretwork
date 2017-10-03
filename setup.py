@@ -182,7 +182,7 @@ if os.name == 'nt':
         './win32/deps/bin/zlib1.dll']
 
     for f in mixstreamDlls:
-        print 'copying ', f, ' -> ', './fretwork/mixstream/%s' % f.rsplit('/', 1)[1]
+        print('copying ', f, ' -> ', './fretwork/mixstream/%s' % f.rsplit('/', 1)[1])
         shutil.copy(f, './fretwork/mixstream/%s' % f.rsplit('/', 1)[1])
 else:
     mixstreamDlls = []
@@ -214,5 +214,5 @@ setup(name='fretwork',
 
 if os.name == 'nt':
     for f in mixstreamDlls:
-        print 'removing ', './fretwork/mixstream/%s' % f.rsplit('/', 1)[1]
+        print('removing ', './fretwork/mixstream/%s' % f.rsplit('/', 1)[1])
         os.remove('./fretwork/mixstream/%s' % f.rsplit('/', 1)[1])
