@@ -1,6 +1,8 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+import os.path
+
 from DataTypeConverters import readBew as readBew_
 from DataTypeConverters import readVar
 from DataTypeConverters import varLen
@@ -15,23 +17,17 @@ class RawInstreamFile(object):
 
     def __init__(self, infile=''):
         """
-        If 'file' is a string we assume it is a path and read from
-        that file.
-        If it is a file descriptor we read from the file, but we don't
-        close it.
         Midi files are usually pretty small, so it should be safe to
         copy them into memory.
+
+        :param infile: name of the file where data come from.
         """
-        if infile:
-            if type(infile) in [str, unicode]:
-                infile = open(infile, 'rb')
-                self.data = infile.read()
-                infile.close()
-            else:
-                # don't close the f
-                self.data = infile.read()
+        if infile and os.path.isfile(infile):
+            with open(infile, 'rb') as f:
+                self.data = f.read()
         else:
             self.data = ''
+
         # start at beginning ;-)
         self.cursor = 0
 
