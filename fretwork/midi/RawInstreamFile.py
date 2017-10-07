@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from DataTypeConverters import readBew
+from DataTypeConverters import readBew as readBew_
 from DataTypeConverters import readVar
 from DataTypeConverters import varLen
 
@@ -64,7 +64,7 @@ class RawInstreamFile(object):
         Reads n bytes of date from the current cursor position.
         Moves cursor if move_cursor is true
         """
-        return readBew(self.nextSlice(n_bytes, move_cursor))
+        return readBew_(self.nextSlice(n_bytes, move_cursor))
 
     def readVarLen(self):
         """
