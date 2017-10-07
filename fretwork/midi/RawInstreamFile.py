@@ -1,7 +1,9 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from DataTypeConverters import readBew, readVar, varLen
+from DataTypeConverters import readBew
+from DataTypeConverters import readVar
+from DataTypeConverters import varLen
 
 
 class RawInstreamFile(object):
@@ -49,7 +51,6 @@ class RawInstreamFile(object):
         "Moves the cursor to a new relative position"
         self.cursor += relative_position
 
-    # native data reading functions
     def nextSlice(self, length, move_cursor=1):
         "Reads the next text slice from the raw data, with length"
         c = self.cursor
@@ -70,21 +71,8 @@ class RawInstreamFile(object):
         Reads a variable length value from the current cursor position.
         Moves cursor if move_cursor is true
         """
-        MAX_VARLEN = 4 # Max value varlen can be
+        MAX_VARLEN = 4  # Max value varlen can be
         var = readVar(self.nextSlice(MAX_VARLEN, 0))
         # only move cursor the actual bytes in varlen
         self.moveCursor(varLen(var))
         return var
-
-
-if __name__ == '__main__':
-
-    test_file = 'test/midifiles/minimal.mid'
-    fis = RawInstreamFile(test_file)
-    print(fis.nextSlice(len(fis.data)))
-
-    test_file = 'test/midifiles/cubase-minimal.mid'
-    cubase_minimal = open(test_file, 'rb')
-    fis2 = RawInstreamFile(cubase_minimal)
-    print(fis2.nextSlice(len(fis2.data)))
-    cubase_minimal.close()
