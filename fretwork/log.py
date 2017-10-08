@@ -3,9 +3,8 @@
 
 #####################################################################
 # Fretwork                                                          #
-# Copyright (C) 2009-2015 FoFiX Team                                #
-#               2009 John Stumpo                                    #
-#               2006 Sami Kyöstilä                                  #
+# Copyright (C) 2006 Sami Kyöstilä                                  #
+#               2009-2017 FoFiX Team                                #
 #                                                                   #
 # This program is free software; you can redistribute it and/or     #
 # modify it under the terms of the GNU General Public License       #
@@ -23,120 +22,48 @@
 # MA  02110-1301, USA.                                              #
 #####################################################################
 
-'''
-Functions for writing to the logfile.
-'''
+"""
+Logging module
 
-from __future__ import print_function
-import os
-import sys
-import time
-import warnings
-import traceback
+Usage
+-----
 
-from fretwork.unicode import utf8
+Configure the logger in your launcher::
 
-# Whether to output log entries to stdout in addition to the logfile.
-quiet = True
+    from fretwork import log
 
-# Variable to be set in init
-logFile = None
-_old_showwarning = None
-_initTime = None
-
-# TODO - Create global cmd arg facilties to handle these types of things.
-if "-v" in sys.argv or "--verbose" in sys.argv:
-    quiet = False
-
-# Labels for different priorities, as output to the logfile.
-labels = {
-  "warn":   "(W)",
-  "debug":  "(D)",
-  "notice": "(N)",
-  "error":  "(E)",
-}
-
-# Labels for different priorities, as output to stdout.
-if os.name == "posix":
-    displaylabels = {
-      "warn":   "\033[1;33m(W)\033[0m",
-      "debug":  "\033[1;34m(D)\033[0m",
-      "notice": "\033[1;32m(N)\033[0m",
-      "error":  "\033[1;31m(E)\033[0m",
-    }
-else:
-    displaylabels = labels
+    # configure the logger
+    log.configure('file.log')
 
 
-def _init_logging():
-    global _old_showwarning, _initTime
+Import and use it::
 
-    _old_showwarning = warnings.showwarning
-    warnings.showwarning = _showwarning
+    import logging
 
-    _initTime = time.time()
-    debug("Logging initialized: " + time.asctime())
+    logger = logging.getLogger(__name__)
+"""
 
-
-def setLogfile(file):
-    global logFile
-    logFile = file
-    _init_logging()
+import logging
+from logging.handlers import RotatingFileHandler
 
 
-def _log(cls, msg):
-    '''
-    Generic logging function.
-    @param cls:   Priority class for the message
-    @param msg:   Log message text
-    '''
-    msg = utf8(msg)
-    timeprefix = "[%12.6f] " % (time.time() - _initTime)
-    if not quiet:
-        print(timeprefix + displaylabels[cls] + " " + msg)
-    print(timeprefix + labels[cls] + " " + msg, file=logFile)
-    logFile.flush()  #stump: truncated logfiles be gone!
+def configure(log_filename):
+    """Configure logging"""
+    # create the logger
+    logger = logging.getLogger()
+    logger.setLevel(logging.INFO)
 
+    # formatter
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    # file handler
+    handler_filename = log_filename
+    handler_max = 1000000  # 1 Mo
+    file_handler = RotatingFileHandler(handler_filename, 'a', handler_max, 1)
+    file_handler.setLevel(logging.INFO)
 
-def error(msg):
-    '''
-    Log a major error.
-    If this is called while handling an exception, the traceback will
-    be automatically included in the log.
-    @param msg:   Error message text
-    '''
-    if sys.exc_info() == (None, None, None):
-        #warnings.warn("Log.error() called without an active exception", UserWarning, 2)  #stump: should we enforce this?
-        _log("error", msg)
-    else:
-        _log("error", msg + "\n" + traceback.format_exc())
+    # set handlers
+    file_handler.setFormatter(formatter)
+    logger.addHandler(file_handler)
 
-
-def warn(msg):
-    '''
-    Log a warning.
-    @param msg:   Warning message text
-    '''
-    _log("warn", msg)
-
-
-def notice(msg):
-    '''
-    Log a notice.
-    @param msg:   Notice message text
-    '''
-    _log("notice", msg)
-
-
-def debug(msg):
-    '''
-    Log a debug message.
-    @param msg:   Debug message text
-    '''
-    _log("debug", msg)
-
-
-def _showwarning(*args, **kw):
-    '''A hook to catch Python warnings.'''
-    warn("A Python warning was issued:\n" + warnings.formatwarning(*args, **kw))
-    _old_showwarning(*args, **kw)
+    # init logging
+    logger.debug("Logging initialized")
