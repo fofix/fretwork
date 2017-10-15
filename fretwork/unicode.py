@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 #####################################################################
 # Fretwork                                                          #
 # Copyright (C) 2012 FoFiX Team                                     #
@@ -18,33 +20,38 @@
 # MA  02110-1301, USA.                                              #
 #####################################################################
 
-'''
+"""
 Miscellaneous functions for helping us handle Unicode correctly in
 the face of what we've done in the past.
-'''
+"""
+
+# python3 hack
+try:
+    UNICODE_EXISTS = bool(type(unicode))
+except NameError:
+    unicode = str
+
 
 def unicodify(s):
-    '''
-    Turns s into a Unicode string, interpreting it as UTF-8 if it is
-    valid UTF-8, or as ISO-8859-1 if it is not. Returns s itself if
-    it is already a Unicode string.
-    @param s: input
-    @return:  Unicode version of s
-    '''
+    """
+    Turns `s` into a Unicode string
+
+    :param s: input string
+    :return:  Unicode version of s
+    """
     if isinstance(s, unicode):
         return s
-
-    if not isinstance(s, basestring):
+    elif isinstance(s, str):
+        # not used in python3
+        try:
+            return s.decode('utf-8')
+        except UnicodeDecodeError:
+            return s
+    else:
         try:
             return unicode(s)
         except UnicodeDecodeError:
-            s = str(s)
-
-    try:
-        return s.decode('utf-8')
-    except UnicodeDecodeError:
-        # Nothing is invalid ISO-8859-1, so this can't fail.
-        return s.decode('iso-8859-1')
+            return str(s)
 
 
 def utf8(s):
