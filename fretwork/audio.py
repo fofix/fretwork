@@ -1,6 +1,8 @@
+# -*- coding: utf-8 -*-
+
 #####################################################################
 # Fretwork                                                          #
-# Copyright (C) 2011-2015 FoFiX Team                                #
+# Copyright (C) 2011-2017 FoFiX Team                                #
 #               2008 myfingershurt                                  #
 #               2006 Sami Kyöstilä                                  #
 #                                                                   #
@@ -20,12 +22,17 @@
 # MA  02110-1301, USA.                                              #
 #####################################################################
 
-import pygame
-import numpy as np
+import logging
 
-from fretwork import log
-from fretwork.task import Task
+import numpy as np
+import pygame
+
 from fretwork.mixstream import VorbisFileMixStream
+from fretwork.task import Task
+
+
+logger = logging.getLogger(__name__)
+
 
 #stump: get around some strangeness in pygame when py2exe'd...
 if not hasattr(pygame.mixer, 'music'):
