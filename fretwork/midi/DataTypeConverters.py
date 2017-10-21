@@ -19,14 +19,17 @@ channel and event in 1. byte of musical midi events
 def getNibbles(byte):
     """
     Returns hi and lo bits in a byte as a tuple
-    >>> getNibbles(142)
-    (8, 14)
 
-    Asserts byte value in byte range
-    >>> getNibbles(256)
-    Traceback (most recent call last):
+    .. doctest::
+
+        >>> getNibbles(142)
+        (8, 14)
+
+        Asserts byte value in byte range
+        >>> getNibbles(256)
+        Traceback (most recent call last):
         ...
-    ValueError: Byte value out of range 0-255: 256
+        ValueError: Byte value out of range 0-255: 256
     """
     if not 0 <= byte <= 255:
         raise ValueError('Byte value out of range 0-255: %s' % byte)
@@ -37,13 +40,16 @@ def setNibbles(hiNibble, loNibble):
     """
     Returns byte with value set according to hi and lo bits
     Asserts hiNibble and loNibble in range(16)
-    >>> setNibbles(8, 14)
-    142
 
-    >>> setNibbles(8, 16)
-    Traceback (most recent call last):
+    .. doctest::
+
+        >>> setNibbles(8, 14)
+        142
+
+        >>> setNibbles(8, 16)
+        Traceback (most recent call last):
         ...
-    ValueError: Nible value out of range 0-15: (8, 16)
+        ValueError: Nible value out of range 0-15: (8, 16)
     """
     if not (0 <= hiNibble <= 15) or not (0 <= loNibble <= 15):
         raise ValueError('Nible value out of range 0-15: (%s, %s)' % (hiNibble, loNibble))
@@ -54,10 +60,13 @@ def setNibbles(hiNibble, loNibble):
 def readBew(value):
     """
     Reads string as big endian word, (asserts len(value) in [1,2,4])
-    >>> readBew('aáâã')
-    0
-    >>> readBew('aá')
-    0
+
+    .. doctest::
+
+        >>> readBew('aáâã')
+        0
+        >>> readBew('aá')
+        0
     """
     try:
         return unpack('>%s' % {1:'B', 2:'H', 4:'L'}[len(value)], value)[0]
@@ -68,14 +77,15 @@ def writeBew(value, length):
     """
     Write int as big endian formatted string, (asserts length in [1,2,4])
     Difficult to print the result in doctest, so I do a simple roundabout test.
-    >>> readBew(writeBew(25057, 2))
-    25057
-    >>> readBew(writeBew(1642193635L, 4))
-    1642193635
+
+    .. doctest::
+
+        >>> readBew(writeBew(25057, 2))
+        25057
+        >>> readBew(writeBew(1642193635L, 4))
+        1642193635
     """
-    return pack('>%s' % {1:'B', 2:'H', 4:'L'}[length], value)
-
-
+    return pack('>%s' % {1: 'B', 2: 'H', 4: 'L'}[length], value)
 
 """
 Variable Length Data (varlen) is a data format sprayed liberally throughout
@@ -91,10 +101,13 @@ def readVar(value):
     might be a varlen and it will only use the relevant chars.
     use varLen(readVar(value)) to see how many bytes the integer value takes.
     asserts len(value) >= 0
-    >>> readVar('@')
-    1081408
-    >>> readVar('áâãa')
-    295821045191137
+
+    .. doctest::
+
+        >>> readVar('@')
+        1081408
+        >>> readVar('áâãa')
+        295821045191137
     """
     sum = 0
     for byte in unpack('%sB' % len(value), value):
