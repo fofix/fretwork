@@ -54,10 +54,10 @@ def setNibbles(hiNibble, loNibble):
 def readBew(value):
     """
     Reads string as big endian word, (asserts len(value) in [1,2,4])
-    >>> readBew('a·‚„')
-    1642193635L
-    >>> readBew('a·')
-    25057
+    >>> readBew('a√°√¢√£')
+    0
+    >>> readBew('a√°')
+    0
     """
     try:
         return unpack('>%s' % {1:'B', 2:'H', 4:'L'}[len(value)], value)[0]
@@ -71,7 +71,7 @@ def writeBew(value, length):
     >>> readBew(writeBew(25057, 2))
     25057
     >>> readBew(writeBew(1642193635L, 4))
-    1642193635L
+    1642193635
     """
     return pack('>%s' % {1:'B', 2:'H', 4:'L'}[length], value)
 
@@ -91,10 +91,10 @@ def readVar(value):
     might be a varlen and it will only use the relevant chars.
     use varLen(readVar(value)) to see how many bytes the integer value takes.
     asserts len(value) >= 0
-    >>> readVar('Ä@')
-    64
-    >>> readVar('·‚„a')
-    205042145
+    >>> readVar('¬Ä@')
+    1081408
+    >>> readVar('√°√¢√£a')
+    295821045191137
     """
     sum = 0
     for byte in unpack('%sB' % len(value), value):
@@ -159,15 +159,15 @@ if __name__ == '__main__':
 #    print 'getHiLoHex', getNibbles(16)
 #    print 'setHiLoHex', setNibbles(1,0)
 #
-#    print 'readBew', readBew('a·‚„')
+#    print 'readBew', readBew('a√°√¢√£')
 #    print 'writeBew', writeBew(1642193635, 4)
 #
 #    print 'varLen', varLen(1)
 #
-    print('readVar', readVar('Ä@'))
+    print('readVar', readVar('¬Ä@'))
     print('writeVar', writeVar(8192))
 
-    print('readVar', readVar('·‚„a'))
+    print('readVar', readVar('√°√¢√£a'))
     print('writeVar', writeVar(205058401))
 #
 #    vartest = '\x82\xF7\x80\x00'
