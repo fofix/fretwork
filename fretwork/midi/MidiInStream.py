@@ -37,8 +37,7 @@ class MidiInStream(object):
 
         Start the MidiInstream.
 
-        "time" sets timer to specific start value.
-
+        :param time: sets timer to specific start value.
         """
 
 
