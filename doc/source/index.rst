@@ -4,15 +4,8 @@
 Welcome to fretwork's documentation!
 ====================================
 
+This is a shared library between FoFiX and FoF:R.
+
 .. toctree::
-   :maxdepth: 2
-   :caption: Contents:
 
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+   code/modules
