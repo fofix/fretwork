@@ -1,20 +1,19 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from struct import pack, unpack
 
 """
 This module contains functions for reading and writing the special data types
 that a midi file contains.
 """
 
-"""
-nibbles are four bits. A byte consists of two nibles.
-hiBits==0xF0, loBits==0x0F Especially used for setting
-channel and event in 1. byte of musical midi events
-"""
+from struct import pack
+from struct import unpack
 
 
+# nibbles are four bits. A byte consists of two nibles.
+# hiBits==0xF0, loBits==0x0F Especially used for setting
+# channel and event in 1. byte of musical midi events
 
 def getNibbles(byte):
     """
@@ -87,13 +86,11 @@ def writeBew(value, length):
     """
     return pack('>%s' % {1: 'B', 2: 'H', 4: 'L'}[length], value)
 
-"""
-Variable Length Data (varlen) is a data format sprayed liberally throughout
-a midi file. It can be anywhere from 1 to 4 bytes long.
-If the 8'th bit is set in a byte another byte follows. The value is stored
-in the lowest 7 bits of each byte. So max value is 4x7 bits = 28 bits.
-"""
 
+# Variable Length Data (varlen) is a data format sprayed liberally throughout
+# a midi file. It can be anywhere from 1 to 4 bytes long.
+# If the 8'th bit is set in a byte another byte follows. The value is stored
+# in the lowest 7 bits of each byte. So max value is 4x7 bits = 28 bits.
 
 def readVar(value):
     """
