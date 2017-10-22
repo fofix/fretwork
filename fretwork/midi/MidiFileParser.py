@@ -1,8 +1,5 @@
 # -*- coding: utf-8 -*-
 
-# std library
-from struct import unpack
-
 # uhh I don't really like this, but there are so many constants to
 # import otherwise
 from constants import *

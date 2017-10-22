@@ -162,10 +162,6 @@ def fromBytes(value):
 
 if __name__ == '__main__':
 
-#    print to7bits(0, 3)
-#    print to7bits(127, 3)
-#    print to7bits(255, 3)
-#    print to7bits(65536, 3)
 
     # simple test cases
 

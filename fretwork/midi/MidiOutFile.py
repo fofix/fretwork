@@ -166,10 +166,6 @@ class MidiOutFile(MidiOutStream):
 
 
     def tuning_request(self):
-
-        """
-        No values passed
-        """
         self.event_slice(chr(TUNING_REQUEST))
 
 

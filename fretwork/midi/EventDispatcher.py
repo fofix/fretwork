@@ -1,9 +1,5 @@
 # -*- coding: utf-8 -*-
 
-# std library
-from struct import unpack
-
-# custom
 from DataTypeConverters import readBew, readVar, varLen, toBytes
 
 # uhh I don't really like this, but there are so many constants to

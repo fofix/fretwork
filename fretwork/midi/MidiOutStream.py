@@ -193,10 +193,6 @@ class MidiOutStream(object):
 
 
     def tuning_request(self):
-
-        """
-        No values passed
-        """
         pass
 
 
@@ -413,55 +409,31 @@ class MidiOutStream(object):
     ## realtime events
 
     def timing_clock(self):
-
-        """
-        No values passed
-        """
         pass
 
 
 
     def song_start(self):
-
-        """
-        No values passed
-        """
         pass
 
 
 
     def song_stop(self):
-
-        """
-        No values passed
-        """
         pass
 
 
 
     def song_continue(self):
-
-        """
-        No values passed
-        """
         pass
 
 
 
     def active_sensing(self):
-
-        """
-        No values passed
-        """
         pass
 
 
 
     def system_reset(self):
-
-        """
-        No values passed
-        """
         pass
 
 
