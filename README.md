@@ -1,4 +1,6 @@
 [![Code Health](https://landscape.io/github/fofix/fretwork/master/landscape.svg?style=flat)](https://landscape.io/github/fofix/fretwork/master)
+[![Documentation Status](https://readthedocs.org/projects/fretwork/badge/?version=latest)](http://fretwork.readthedocs.io/en/latest/?badge=latest)
+
 # fretwork
 Shared code for FoFiX and FoF:R
 
