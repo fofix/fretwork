@@ -1,4 +1,4 @@
-# -*- coding: ISO-8859-1 -*-
+# -*- coding: utf-8 -*-
 
 from MidiOutStream import MidiOutStream
 
@@ -37,8 +37,7 @@ class MidiInStream(object):
 
         Start the MidiInstream.
 
-        "time" sets timer to specific start value.
-
+        :param time: sets timer to specific start value.
         """
 
 

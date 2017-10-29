@@ -1,7 +1,10 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
 #####################################################################
 # Fretwork                                                          #
-# Copyright (C) 2013-2015 FoFiX Team                                #
-#				2006 Sami Kyöstilä                                  #
+# Copyright (C) 2013-2017 FoFiX Team                                #
+#               2006 Sami Kyöstilä                                  #
 #                                                                   #
 # This program is free software; you can redistribute it and/or     #
 # modify it under the terms of the GNU General Public License       #

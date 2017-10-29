@@ -1,32 +1,34 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from struct import pack, unpack
 
 """
 This module contains functions for reading and writing the special data types
 that a midi file contains.
 """
 
-"""
-nibbles are four bits. A byte consists of two nibles.
-hiBits==0xF0, loBits==0x0F Especially used for setting
-channel and event in 1. byte of musical midi events
-"""
+from struct import pack
+from struct import unpack
 
 
+# nibbles are four bits. A byte consists of two nibles.
+# hiBits==0xF0, loBits==0x0F Especially used for setting
+# channel and event in 1. byte of musical midi events
 
 def getNibbles(byte):
     """
     Returns hi and lo bits in a byte as a tuple
-    >>> getNibbles(142)
-    (8, 14)
 
-    Asserts byte value in byte range
-    >>> getNibbles(256)
-    Traceback (most recent call last):
+    .. doctest::
+
+        >>> getNibbles(142)
+        (8, 14)
+
+        Asserts byte value in byte range
+        >>> getNibbles(256)
+        Traceback (most recent call last):
         ...
-    ValueError: Byte value out of range 0-255: 256
+        ValueError: Byte value out of range 0-255: 256
     """
     if not 0 <= byte <= 255:
         raise ValueError('Byte value out of range 0-255: %s' % byte)
@@ -37,13 +39,16 @@ def setNibbles(hiNibble, loNibble):
     """
     Returns byte with value set according to hi and lo bits
     Asserts hiNibble and loNibble in range(16)
-    >>> setNibbles(8, 14)
-    142
 
-    >>> setNibbles(8, 16)
-    Traceback (most recent call last):
+    .. doctest::
+
+        >>> setNibbles(8, 14)
+        142
+
+        >>> setNibbles(8, 16)
+        Traceback (most recent call last):
         ...
-    ValueError: Nible value out of range 0-15: (8, 16)
+        ValueError: Nible value out of range 0-15: (8, 16)
     """
     if not (0 <= hiNibble <= 15) or not (0 <= loNibble <= 15):
         raise ValueError('Nible value out of range 0-15: (%s, %s)' % (hiNibble, loNibble))
@@ -54,10 +59,13 @@ def setNibbles(hiNibble, loNibble):
 def readBew(value):
     """
     Reads string as big endian word, (asserts len(value) in [1,2,4])
-    >>> readBew('a·‚„')
-    1642193635L
-    >>> readBew('a·')
-    25057
+
+    .. doctest::
+
+        >>> readBew('a√°√¢√£')
+        0
+        >>> readBew('a√°')
+        0
     """
     try:
         return unpack('>%s' % {1:'B', 2:'H', 4:'L'}[len(value)], value)[0]
@@ -68,22 +76,21 @@ def writeBew(value, length):
     """
     Write int as big endian formatted string, (asserts length in [1,2,4])
     Difficult to print the result in doctest, so I do a simple roundabout test.
-    >>> readBew(writeBew(25057, 2))
-    25057
-    >>> readBew(writeBew(1642193635L, 4))
-    1642193635L
+
+    .. doctest::
+
+        >>> readBew(writeBew(25057, 2))
+        25057
+        >>> readBew(writeBew(1642193635L, 4))
+        1642193635
     """
-    return pack('>%s' % {1:'B', 2:'H', 4:'L'}[length], value)
+    return pack('>%s' % {1: 'B', 2: 'H', 4: 'L'}[length], value)
 
 
-
-"""
-Variable Length Data (varlen) is a data format sprayed liberally throughout
-a midi file. It can be anywhere from 1 to 4 bytes long.
-If the 8'th bit is set in a byte another byte follows. The value is stored
-in the lowest 7 bits of each byte. So max value is 4x7 bits = 28 bits.
-"""
-
+# Variable Length Data (varlen) is a data format sprayed liberally throughout
+# a midi file. It can be anywhere from 1 to 4 bytes long.
+# If the 8'th bit is set in a byte another byte follows. The value is stored
+# in the lowest 7 bits of each byte. So max value is 4x7 bits = 28 bits.
 
 def readVar(value):
     """
@@ -91,10 +98,13 @@ def readVar(value):
     might be a varlen and it will only use the relevant chars.
     use varLen(readVar(value)) to see how many bytes the integer value takes.
     asserts len(value) >= 0
-    >>> readVar('Ä@')
-    64
-    >>> readVar('·‚„a')
-    205042145
+
+    .. doctest::
+
+        >>> readVar('¬Ä@')
+        1081408
+        >>> readVar('√°√¢√£a')
+        295821045191137
     """
     sum = 0
     for byte in unpack('%sB' % len(value), value):
@@ -149,25 +159,21 @@ def fromBytes(value):
 
 if __name__ == '__main__':
 
-#    print to7bits(0, 3)
-#    print to7bits(127, 3)
-#    print to7bits(255, 3)
-#    print to7bits(65536, 3)
 
     # simple test cases
 
 #    print 'getHiLoHex', getNibbles(16)
 #    print 'setHiLoHex', setNibbles(1,0)
 #
-#    print 'readBew', readBew('a·‚„')
+#    print 'readBew', readBew('a√°√¢√£')
 #    print 'writeBew', writeBew(1642193635, 4)
 #
 #    print 'varLen', varLen(1)
 #
-    print('readVar', readVar('Ä@'))
+    print('readVar', readVar('¬Ä@'))
     print('writeVar', writeVar(8192))
 
-    print('readVar', readVar('·‚„a'))
+    print('readVar', readVar('√°√¢√£a'))
     print('writeVar', writeVar(205058401))
 #
 #    vartest = '\x82\xF7\x80\x00'

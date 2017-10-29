@@ -149,7 +149,8 @@ class Sound(object):
     def __init__(self, fileName):
         self.sound   = pygame.mixer.Sound(fileName)
 
-    def isPlaying(self):  #MFH - adding function to check if sound is playing
+    def isPlaying(self):
+        """Check if sound is playing"""
         return bool(self.sound.get_num_channels())
 
     def play(self, loops = 0):

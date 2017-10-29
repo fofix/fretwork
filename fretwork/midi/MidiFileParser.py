@@ -1,7 +1,4 @@
-# -*- coding: ISO-8859-1 -*-
-
-# std library
-from struct import unpack
+# -*- coding: utf-8 -*-
 
 # uhh I don't really like this, but there are so many constants to
 # import otherwise
