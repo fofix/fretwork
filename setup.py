@@ -21,11 +21,13 @@
 #####################################################################
 
 from setuptools import setup, Extension
-from Cython.Build import cythonize
-import sys, os, glob
-import subprocess
+import os
 import shlex
 import shutil
+import subprocess
+import sys
+
+from Cython.Build import cythonize
 
 from fretwork.version import version_number
 
@@ -37,7 +39,7 @@ def find_command(cmd):
 
     if os.name == 'nt':
         # Only accept something from the dependency pack.
-        path = os.path.join('.', 'win32', 'deps', 'bin', cmd+'.exe')
+        path = os.path.join('.', 'win32', 'deps', 'bin', cmd + '.exe')
     else:
         # Search the PATH.
         path = None
@@ -57,22 +59,12 @@ def find_command(cmd):
     return path
 
 
-# Find pkg-config so we can find the libraries we need.
-pkg_config = find_command('pkg-config')
-
-
 def pc_exists(pkg):
     '''Check whether pkg-config thinks a library exists.'''
     if os.spawnl(os.P_WAIT, pkg_config, 'pkg-config', '--exists', pkg) == 0:
         return True
     else:
         return False
-
-# Blacklist MinGW-specific dependency libraries on Windows.
-if os.name == 'nt':
-    lib_blacklist = ['m', 'mingw32']
-else:
-    lib_blacklist = []
 
 
 def pc_info(pkg, altnames=[]):
@@ -100,7 +92,6 @@ def pc_info(pkg, altnames=[]):
     cflags = shlex.split(subprocess.check_output([pkg_config, '--cflags', pkg]).decode())
     libs = shlex.split(subprocess.check_output([pkg_config, '--libs', pkg]).decode())
 
-
     # Pick out anything interesting in the cflags and libs, and
     # silently drop the rest.
     def def_split(x):
@@ -109,10 +100,10 @@ def pc_info(pkg, altnames=[]):
             pair.append(None)
         return tuple(pair)
     info = {
-      'define_macros': [def_split(x[2:]) for x in cflags if x[:2] == '-D'],
-      'include_dirs': [x[2:] for x in cflags if x[:2] == '-I'],
-      'libraries': [x[2:] for x in libs if x[:2] == '-l' and x[2:] not in lib_blacklist],
-      'library_dirs': [x[2:] for x in libs if x[:2] == '-L'],
+        'define_macros': [def_split(x[2:]) for x in cflags if x[:2] == '-D'],
+        'include_dirs': [x[2:] for x in cflags if x[:2] == '-I'],
+        'libraries': [x[2:] for x in libs if x[:2] == '-l' and x[2:] not in lib_blacklist],
+        'library_dirs': [x[2:] for x in libs if x[:2] == '-L'],
     }
 
     print('ok')
@@ -123,10 +114,10 @@ def combine_info(*args):
     '''Combine multiple result dicts from L{pc_info} into one.'''
 
     info = {
-      'define_macros': [],
-      'include_dirs': [],
-      'libraries': [],
-      'library_dirs': [],
+        'define_macros': [],
+        'include_dirs': [],
+        'libraries': [],
+        'library_dirs': [],
     }
 
     for a in args:
@@ -136,6 +127,17 @@ def combine_info(*args):
         info['library_dirs'].extend(a.get('library_dirs', []))
 
     return info
+
+
+# Find pkg-config so we can find the libraries we need.
+pkg_config = find_command('pkg-config')
+
+
+# Blacklist MinGW-specific dependency libraries on Windows.
+if os.name == 'nt':
+    lib_blacklist = ['m', 'mingw32']
+else:
+    lib_blacklist = []
 
 
 vorbisfile_info = pc_info('vorbisfile')
@@ -158,7 +160,8 @@ else:
 mixstreamSource = [
     'fretwork/mixstream/_MixStream.pyx',
     'fretwork/mixstream/MixStream.c',
-    'fretwork/mixstream/vorbis.c']
+    'fretwork/mixstream/vorbis.c'
+]
 
 mixstreamSource.extend(extra_soundtouch_src)
 
@@ -168,7 +171,8 @@ mixstreamExt = Extension('fretwork.mixstream._MixStream', mixstreamSource,
 if os.name == 'nt':
     # Work around for distutils needing the files to be inside the packages in order
     # to copy them to the final package
-    mixstreamDlls = ['./win32/deps/bin/iconv.dll',
+    mixstreamDlls = [
+        './win32/deps/bin/iconv.dll',
         './win32/deps/bin/libglib-2.0-0.dll',
         './win32/deps/bin/libgthread-2.0-0.dll',
         './win32/deps/bin/libintl-8.dll',
@@ -179,7 +183,8 @@ if os.name == 'nt':
         './win32/deps/bin/libvorbisfile-3.dll',
         './win32/deps/bin/SDL.dll',
         './win32/deps/bin/SDL_mixer.dll',
-        './win32/deps/bin/zlib1.dll']
+        './win32/deps/bin/zlib1.dll'
+    ]
 
     for f in mixstreamDlls:
         print('copying ', f, ' -> ', './fretwork/mixstream/%s' % f.rsplit('/', 1)[1])
@@ -188,29 +193,30 @@ else:
     mixstreamDlls = []
 
 
-setup(name='fretwork',
-        version=version_number,
-        description='Game library used by FoFiX, and FoF:R.',
-        author='Matthew Sitton',
-        author_email='matthewsitton@gmail.com',
-        license='GPLv2+',
-        url='https://github.com/fofix',
-        packages=['fretwork', 'fretwork.mixstream', 'fretwork.midi'],
-        package_data={'fretwork.mixstream': ['*.dll']},
-        zip_safe=False,
-        classifiers=[
-            'Development Status :: 2 - Pre-Alpha',
-            'Intended Audience :: Developers',
-            'Topic :: Multimedia :: Graphics',
-            'License :: OSI Approved :: GNU General Public License v2 or later (GPLv2+)',
+setup(
+    name='fretwork',
+    version=version_number,
+    description='Game library used by FoFiX, and FoF:R.',
+    author='Matthew Sitton',
+    author_email='matthewsitton@gmail.com',
+    license='GPLv2+',
+    url='https://github.com/fofix',
+    packages=['fretwork', 'fretwork.mixstream', 'fretwork.midi'],
+    package_data={'fretwork.mixstream': ['*.dll']},
+    zip_safe=False,
+    classifiers=[
+        'Development Status :: 2 - Pre-Alpha',
+        'Intended Audience :: Developers',
+        'Topic :: Multimedia :: Graphics',
+        'License :: OSI Approved :: GNU General Public License v2 or later (GPLv2+)',
 
-            'Programming Language :: Python',
-            'Programming Language :: Python :: 2.7',
-        ],
-        keywords='music engine fofix frets game',
-        install_requires=['Pillow', 'cython', 'pygame', 'pyopengl', 'numpy'],
-        ext_modules=cythonize(mixstreamExt)
-     )
+        'Programming Language :: Python',
+        'Programming Language :: Python :: 2.7',
+    ],
+    keywords='music engine fofix frets game',
+    install_requires=['Pillow', 'cython', 'pygame', 'pyopengl', 'numpy'],
+    ext_modules=cythonize(mixstreamExt)
+)
 
 if os.name == 'nt':
     for f in mixstreamDlls:
