@@ -22,6 +22,7 @@
 # MA  02110-1301, USA.                                              #
 #####################################################################
 
+
 class Task(object):
     def __init__(self):
         pass
@@ -35,6 +36,7 @@ class Task(object):
     def run(self, ticks):
         pass
 
+
 class TaskEngine(object):
     def __init__(self, engine):
 
@@ -45,7 +47,6 @@ class TaskEngine(object):
         self.tasks = []
         self.currentTask = None
 
-
     def checkTask(self, task):
         '''Check if a task exists'''
 
@@ -55,7 +56,7 @@ class TaskEngine(object):
 
         return False
 
-    def addTask(self, task, synced = True):
+    def addTask(self, task, synced=True):
         '''Add a task'''
 
         if not self.checkTask(task):
