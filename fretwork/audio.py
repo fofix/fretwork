@@ -50,12 +50,12 @@ class Audio(object):
 
         try:
             pygame.mixer.quit()
-        except:
-            pass
+        except Exception:
+            logger.debug("Audio.open: pygame mixer failed to quit.")
 
         try:
             pygame.mixer.init(frequency, -bits, stereo and 2 or 1, bufferSize)
-        except:
+        except Exception:
             logger.warn("Audio setup failed. Trying with default configuration.")
             pygame.mixer.init()
 
@@ -79,8 +79,8 @@ class Audio(object):
     def close(self):
         try:
             pygame.mixer.quit()
-        except:
-            pass
+        except Exception:
+            logger.debug("Audio.close: pygame mixer failed to quit.")
 
     def pause(self):
         pygame.mixer.pause()
