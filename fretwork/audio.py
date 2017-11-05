@@ -56,10 +56,10 @@ class Audio(object):
         try:
             pygame.mixer.init(frequency, -bits, stereo and 2 or 1, bufferSize)
         except:
-            log.warn("Audio setup failed. Trying with default configuration.")
+            logger.warn("Audio setup failed. Trying with default configuration.")
             pygame.mixer.init()
 
-        log.debug("Audio configuration: %s" % str(pygame.mixer.get_init()))
+        logger.debug("Audio configuration: %s" % str(pygame.mixer.get_init()))
 
         #myfingershurt: ensuring we have enough audio channels!
         pygame.mixer.set_num_channels(10)
