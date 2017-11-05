@@ -23,6 +23,7 @@
 #####################################################################
 
 import logging
+import sys
 
 import numpy as np
 import pygame
@@ -32,6 +33,10 @@ from fretwork.task import Task
 
 
 logger = logging.getLogger(__name__)
+
+# python 3 hack
+if sys.version_info > (3,):
+    buffer = memoryview
 
 
 # get around some strangeness in pygame when py2exe'd...
