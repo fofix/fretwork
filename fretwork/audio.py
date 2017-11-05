@@ -34,7 +34,7 @@ from fretwork.task import Task
 logger = logging.getLogger(__name__)
 
 
-#stump: get around some strangeness in pygame when py2exe'd...
+# get around some strangeness in pygame when py2exe'd...
 if not hasattr(pygame.mixer, 'music'):
     import sys
     __import__('pygame.mixer_music')
@@ -42,31 +42,30 @@ if not hasattr(pygame.mixer, 'music'):
 
 
 class Audio(object):
-    def pre_open(self, frequency = 22050, bits = 16, stereo = True, bufferSize = 1024):
+    def pre_open(self, frequency=22050, bits=16, stereo=True, bufferSize=1024):
         pygame.mixer.pre_init(frequency, -bits, stereo and 2 or 1, bufferSize)
         return True
 
-    def open(self, frequency = 22050, bits = 16, stereo = True, bufferSize = 1024):
+    def open(self, frequency=22050, bits=16, stereo=True, bufferSize=1024):
 
         try:
             pygame.mixer.quit()
-        except:
-            pass
+        except Exception:
+            logger.debug("Audio.open: pygame mixer failed to quit.")
 
         try:
             pygame.mixer.init(frequency, -bits, stereo and 2 or 1, bufferSize)
-        except:
-            log.warn("Audio setup failed. Trying with default configuration.")
+        except Exception:
+            logger.warn("Audio setup failed. Trying with default configuration.")
             pygame.mixer.init()
 
-        log.debug("Audio configuration: %s" % str(pygame.mixer.get_init()))
+        logger.debug("Audio configuration: %s" % str(pygame.mixer.get_init()))
 
-        #myfingershurt: ensuring we have enough audio channels!
+        # ensuring we have enough audio channels!
         pygame.mixer.set_num_channels(10)
 
         return True
 
-    #myfingershurt:
     def findChannel(self):
         return pygame.mixer.find_channel()
 
@@ -79,8 +78,8 @@ class Audio(object):
     def close(self):
         try:
             pygame.mixer.quit()
-        except:
-            pass
+        except Exception:
+            logger.debug("Audio.close: pygame mixer failed to quit.")
 
     def pause(self):
         pygame.mixer.pause()
@@ -88,18 +87,19 @@ class Audio(object):
     def unpause(self):
         pygame.mixer.unpause()
 
+
 class Music(object):
     def __init__(self, fileName):
         pygame.mixer.music.load(fileName)
 
     @staticmethod
-    def setEndEvent(event = None):
+    def setEndEvent(event=None):
         if event:
             pygame.mixer.music.set_endevent(event)
         else:
-            pygame.mixer.music.set_endevent()   #MFH - to set NO event.
+            pygame.mixer.music.set_endevent()  # to set NO event
 
-    def play(self, loops = -1, pos = 0.0):
+    def play(self, loops=-1, pos=0.0):
         pygame.mixer.music.play(loops, pos)
 
     def stop(self):
@@ -147,13 +147,13 @@ class Channel(object):
 
 class Sound(object):
     def __init__(self, fileName):
-        self.sound   = pygame.mixer.Sound(fileName)
+        self.sound = pygame.mixer.Sound(fileName)
 
     def isPlaying(self):
         """Check if sound is playing"""
         return bool(self.sound.get_num_channels())
 
-    def play(self, loops = 0):
+    def play(self, loops=0):
         self.sound.play(loops)
 
     def stop(self):
@@ -166,7 +166,7 @@ class Sound(object):
         self.sound.fadeout(time)
 
 
-#stump: mic passthrough
+# mic passthrough
 class MicrophonePassthroughStream(Sound, Task):
     def __init__(self, engine, mic):
         Task.__init__(self)
