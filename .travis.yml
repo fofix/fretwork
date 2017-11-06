@@ -1,0 +1,22 @@
+language: python
+python:
+    - 2.7
+    - 3.6
+
+before_install:
+    - sudo apt-get -qq update
+    - sudo apt-get install -y
+        libportmidi-dev
+        libsdl-image1.2-dev
+        libsdl-mixer1.2-dev
+        libsdl-ttf2.0-dev
+        libsdl1.2-dev
+        libsoundtouch-dev
+        libvorbis-dev
+
+install:
+    - pip install cython
+
+script:
+    - python setup.py check
+    - python setup.py test
