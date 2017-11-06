@@ -42,6 +42,6 @@ class ConfigureTest(unittest.TestCase):
         logger.info(msg)
 
         # read the log file
-        log_msg = self.logfile.read()
+        log_msg = self.logfile.readline().decode()
         self.assertIn('INFO', log_msg)
         self.assertIn(msg, log_msg)
