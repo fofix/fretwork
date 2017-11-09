@@ -1,0 +1,16 @@
+include LICENSE
+include MANIFEST.in
+include README.md
+include requirements.txt
+
+recursive-include doc *.py
+recursive-include doc *.rst
+recursive-include doc *.txt
+recursive-include doc Makefile
+recursive-include fretwork *.c
+recursive-include fretwork *.h
+recursive-include fretwork *.pyx
+recursive-include tests *.py
+
+prune win32
+prune fretwork/mixstream/_MixStream.c
