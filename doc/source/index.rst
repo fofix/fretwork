@@ -9,3 +9,4 @@ This is a shared library between FoFiX and FoF:R.
 .. toctree::
 
    code/modules
+   release
