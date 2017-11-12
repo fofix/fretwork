@@ -219,7 +219,13 @@ setup(
     ],
     keywords='music engine fofix frets game',
     setup_requires=['pytest-runner', 'cython'],
-    install_requires=['Pillow', 'cython', 'pygame', 'pyopengl', 'numpy'],
+    install_requires=[
+        'Pillow == 4.3.0',
+        'Cython == 0.27',
+        'Pygame == 1.9.3',
+        'PyOpenGL == 3.1.0',
+        'numpy == 1.13.3'
+    ],
     ext_modules=cythonize(mixstreamExt),
     test_suite="tests",
     tests_require=["pytest"],
