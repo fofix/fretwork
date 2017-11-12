@@ -229,7 +229,7 @@ setup(
     setup_requires=['pytest-runner', 'cython'],
     install_requires=[
         'Pillow == 4.3.0',
-        'Cython == 0.27',
+        'Cython >= 0.27',
         'Pygame == 1.9.3',
         'PyOpenGL == 3.1.0',
         'numpy == 1.13.3'
