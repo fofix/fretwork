@@ -32,6 +32,13 @@ from Cython.Build import cythonize
 from fretwork.version import version_number
 
 
+try:
+    import pypandoc
+    long_description = pypandoc.convert('README.md', 'rst')
+except ImportError:
+    long_description = open('README.md').read()
+
+
 def find_command(cmd):
     '''Find a program on the PATH, or, on win32, in the dependency pack.'''
 
@@ -197,6 +204,7 @@ setup(
     name='fretwork',
     version=version_number,
     description='Game library used by FoFiX, and FoF:R.',
+    long_description=long_description,
     author='Matthew Sitton and contributors',
     author_email='matthewsitton@gmail.com',
     license='GPLv2+',
