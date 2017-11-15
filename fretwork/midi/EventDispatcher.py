@@ -1,14 +1,12 @@
 # -*- coding: utf-8 -*-
 
-from DataTypeConverters import readBew, readVar, varLen, toBytes
+from DataTypeConverters import readBew
+from DataTypeConverters import toBytes
 
-# uhh I don't really like this, but there are so many constants to
-# import otherwise
 from constants import *
 
 
 class EventDispatcher:
-
 
     def __init__(self, outstream):
 
@@ -34,19 +32,16 @@ class EventDispatcher:
         # If dispatch_continuos_controllers is true, continuos
         # controllers gets dispatched to their defined handlers. Else
         # they just trigger the "continuous_controller" event handler.
-        self.dispatch_continuos_controllers = 1 # NOT IMPLEMENTED YET
+        self.dispatch_continuos_controllers = 1  # NOT IMPLEMENTED YET
 
         # If dispatch_meta_events is true, meta events get's dispatched
         # to their defined events. Else they all they trigger the
         # "meta_event" handler.
         self.dispatch_meta_events = 1
 
-
-
     def header(self, format, nTracks, division):
         "Triggers the header event"
         self.outstream.header(format, nTracks, division)
-
 
     def start_of_track(self, current_track):
         "Triggers the start of track event"
@@ -57,30 +52,23 @@ class EventDispatcher:
         self.outstream.set_current_track(current_track)
         self.outstream.start_of_track(current_track)
 
-
     def sysex_event(self, data):
         "Dispatcher for sysex events"
         self.outstream.system_exclusive(data)
-
 
     def eof(self):
         "End of file!"
         self.outstream.eof()
 
-
     def update_time(self, new_time=0, relative=1):
         "Updates relative/absolute time."
         self.outstream.update_time(new_time, relative)
-
 
     def reset_time(self):
         "Updates relative/absolute time."
         self.outstream.reset_time()
 
-
     # Event dispatchers for similar types of events
-
-
     def channel_messages(self, hi_nible, channel, data):
 
         "Dispatches channel messages"
@@ -92,7 +80,7 @@ class EventDispatcher:
             note, velocity = data
             # note_on with velocity 0x00 are same as note
             # off with velocity 0x40 according to spec!
-            if velocity==0 and self.convert_zero_velocity:
+            if velocity == 0 and self.convert_zero_velocity:
                 stream.note_off(channel, note, 0x40)
             else:
                 stream.note_on(channel, note, velocity)
@@ -130,10 +118,7 @@ class EventDispatcher:
 
             raise ValueError('Illegal channel message!')
 
-
-
     def continuous_controllers(self, channel, controller, value):
-
         "Dispatches channel messages"
 
         stream = self.outstream
@@ -145,10 +130,7 @@ class EventDispatcher:
         # So I just trigger the default event handler
         stream.continuous_controller(channel, controller, value)
 
-
-
     def system_commons(self, common_type, common_data):
-
         "Dispatches system common messages"
 
         stream = self.outstream
@@ -173,10 +155,7 @@ class EventDispatcher:
             # no data then
             stream.tuning_request(time=None)
 
-
-
     def meta_event(self, meta_type, data):
-
         "Dispatches meta events"
 
         stream = self.outstream
@@ -247,8 +226,7 @@ class EventDispatcher:
         elif meta_type == SMTP_OFFSET:
             try:
                 hour, minute, second, frame, framePart = toBytes(data)
-                stream.smtp_offset(
-                        hour, minute, second, frame, framePart)
+                stream.smtp_offset(hour, minute, second, frame, framePart)
             except ValueError:
                 pass
 
@@ -271,17 +249,13 @@ class EventDispatcher:
             stream.sequencer_specific(meta_data)
 
         # Handles any undefined meta events
-        else: # undefined meta type
+        else:
+            # undefined meta type
             meta_data = toBytes(data)
             stream.meta_event(meta_type, meta_data)
 
 
-
-
-
 if __name__ == '__main__':
-
-
     from MidiToText import MidiToText
 
     outstream = MidiToText()
