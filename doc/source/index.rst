@@ -10,3 +10,4 @@ This is a shared library between FoFiX and FoF:R.
 
    code/modules
    release
+   releasenotes
