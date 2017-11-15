@@ -257,7 +257,7 @@ class EventDispatcher:
             try:
                 nn, dd, cc, bb = toBytes(data)
                 stream.time_signature(nn, dd, cc, bb)
-            except ValueError, e:
+            except ValueError:
                 pass
 
         # KEY_SIGNATURE = 0x59 (59 02 sf mi)
