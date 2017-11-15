@@ -6,8 +6,21 @@ Welcome to fretwork's documentation!
 
 This is a shared library between FoFiX and FoF:R.
 
-.. toctree::
 
-   code/modules
+Misc
+----
+
+.. toctree::
+   :maxdepth: 2
+
    release
    releasenotes
+
+
+Code
+----
+
+.. toctree::
+   :maxdepth: 4
+
+   code/modules
