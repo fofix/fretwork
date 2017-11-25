@@ -164,16 +164,19 @@ else:
     extra_soundtouch_src = ['fretwork/mixstream/soundtouch-c.cpp']
 
 
-mixstreamSource = [
+#
+# Extensions
+#
+# mixstream
+mixstream_sources = [
     'fretwork/mixstream/_MixStream.pyx',
     'fretwork/mixstream/MixStream.c',
     'fretwork/mixstream/vorbis.c'
 ]
-
-mixstreamSource.extend(extra_soundtouch_src)
-
-mixstreamExt = Extension('fretwork.mixstream._MixStream', mixstreamSource,
-    **combine_info(vorbisfile_info, soundtouch_info, glib_info, gthread_info, sdl_info, sdl_mixer_info))
+mixstream_sources.extend(extra_soundtouch_src)
+mixstream_info = combine_info(vorbisfile_info, soundtouch_info, glib_info, gthread_info, sdl_info, sdl_mixer_info)
+# regroup them
+extensions = Extension('fretwork.lib._MixStream', mixstream_sources, **mixstream_info)
 
 if os.name == 'nt':
     # Work around for distutils needing the files to be inside the packages in order
@@ -194,8 +197,8 @@ if os.name == 'nt':
     ]
 
     for f in mixstreamDlls:
-        print('copying ', f, ' -> ', './fretwork/mixstream/%s' % f.rsplit('/', 1)[1])
-        shutil.copy(f, './fretwork/mixstream/%s' % f.rsplit('/', 1)[1])
+        print('copying ', f, ' -> ', './fretwork/lib/%s' % f.rsplit('/', 1)[1])
+        shutil.copy(f, './fretwork/lib/%s' % f.rsplit('/', 1)[1])
 else:
     mixstreamDlls = []
 
@@ -234,12 +237,12 @@ setup(
         'PyOpenGL == 3.1.0',
         'numpy == 1.13.3'
     ],
-    ext_modules=cythonize(mixstreamExt),
+    ext_modules=cythonize(extensions),
     test_suite="tests",
     tests_require=["pytest"],
 )
 
 if os.name == 'nt':
     for f in mixstreamDlls:
-        print('removing ', './fretwork/mixstream/%s' % f.rsplit('/', 1)[1])
-        os.remove('./fretwork/mixstream/%s' % f.rsplit('/', 1)[1])
+        print('removing ', './fretwork/lib/%s' % f.rsplit('/', 1)[1])
+        os.remove('./fretwork/lib/%s' % f.rsplit('/', 1)[1])
