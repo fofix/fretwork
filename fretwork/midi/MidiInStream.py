@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from MidiOutStream import MidiOutStream
+from .MidiOutStream import MidiOutStream
+
 
 class MidiInStream(object):
 

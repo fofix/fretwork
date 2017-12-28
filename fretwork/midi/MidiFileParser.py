@@ -1,10 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# uhh I don't really like this, but there are so many constants to
-# import otherwise
-from constants import *
+from .EventDispatcher import EventDispatcher
+from .constants import *
 
-from EventDispatcher import EventDispatcher
 
 class MidiFileParser(object):
 
