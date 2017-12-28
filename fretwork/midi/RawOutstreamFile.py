@@ -1,8 +1,12 @@
 # -*- coding: utf-8 -*-
 
 import sys
-from types import StringType
-from cStringIO import StringIO
+try:
+    from cStringIO import StringIO
+    from types import StringType
+except ImportError:
+    import io as StringIO
+    StringType = str
 
 from .DataTypeConverters import writeVar
 from .DataTypeConverters import writeBew
