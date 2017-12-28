@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 
-# standard library imports
 import sys
 from types import StringType
 from cStringIO import StringIO
 
-# custom import
-from DataTypeConverters import writeBew, writeVar
+from .DataTypeConverters import writeVar
+from .DataTypeConverters import writeBew
+
 
 class RawOutstreamFile(object):
 

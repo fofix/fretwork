@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from RawInstreamFile import RawInstreamFile
-from MidiFileParser import MidiFileParser
+from .MidiFileParser import MidiFileParser
+from .RawInstreamFile import RawInstreamFile
 
 
 class MidiInFile(object):
@@ -38,13 +38,11 @@ class MidiInFile(object):
         self.raw_in = RawInstreamFile(infile)
         self.parser = MidiFileParser(self.raw_in, outStream)
 
-
     def read(self):
         "Start parsing the file"
         p = self.parser
         p.parseMThdChunk()
         p.parseMTrkChunks()
-
 
     def setData(self, data=''):
         "Sets the data from a plain string"

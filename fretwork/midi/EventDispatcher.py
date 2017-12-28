@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from DataTypeConverters import readBew
-from DataTypeConverters import toBytes
-
-from constants import *
+from .DataTypeConverters import readBew
+from .DataTypeConverters import toBytes
+from .constants import *
 
 
 class EventDispatcher:

@@ -1,7 +1,9 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from MidiOutStream import MidiOutStream
+from .MidiOutStream import MidiOutStream
+
+
 class MidiToText(MidiOutStream):
 
 

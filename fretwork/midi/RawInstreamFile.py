@@ -3,9 +3,9 @@
 
 import os.path
 
-from DataTypeConverters import readBew as readBew_
-from DataTypeConverters import readVar
-from DataTypeConverters import varLen
+from .DataTypeConverters import readBew as readBew_
+from .DataTypeConverters import readVar
+from .DataTypeConverters import varLen
 
 
 class RawInstreamFile(object):

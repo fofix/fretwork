@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 
-from MidiOutStream import MidiOutStream
-from RawOutstreamFile import RawOutstreamFile
+from .DataTypeConverters import fromBytes
+from .DataTypeConverters import writeVar
+from .MidiOutStream import MidiOutStream
+from .RawOutstreamFile import RawOutstreamFile
+from .constants import *
 
-from constants import *
-from DataTypeConverters import fromBytes, writeVar
 
 class MidiOutFile(MidiOutStream):
 
