@@ -8,3 +8,8 @@ Module contents
     :members:
     :undoc-members:
     :show-inheritance:
+
+.. autoclass:: fretwork.mixstream.VorbisFileMixStream
+    :members:
+    :undoc-members:
+    :show-inheritance:
