@@ -91,12 +91,3 @@ fretwork\.midi\.constants module
     :members:
     :undoc-members:
     :show-inheritance:
-
-
-Module contents
----------------
-
-.. automodule:: fretwork.midi
-    :members:
-    :undoc-members:
-    :show-inheritance:
