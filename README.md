@@ -3,7 +3,7 @@
 [![Code Health](https://landscape.io/github/fofix/fretwork/master/landscape.svg?style=flat)](https://landscape.io/github/fofix/fretwork/master)
 [![Build Status](https://travis-ci.org/fofix/fretwork.svg?branch=master)](https://travis-ci.org/fofix/fretwork)
 [![Documentation Status](https://readthedocs.org/projects/fretwork/badge/?version=latest)](http://fretwork.readthedocs.io/en/latest/?badge=latest)
-[![PyPI](https://img.shields.io/pypi/v/fretwork.svg)](https://pypi.python.org/pypi/fretwork)
+[![PyPI](https://img.shields.io/pypi/v/fretwork.svg)](https://pypi.org/project/fretwork/)
 
 
 Shared code for FoFiX and FoF:R.
