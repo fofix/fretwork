@@ -16,7 +16,12 @@ before_install:
 
 install:
     - pip install cython
+    - pip install coverage coveralls
 
 script:
     - python setup.py check
-    - python setup.py test
+    #- python setup.py test
+    - coverage run --source='fretwork' setup.py test
+
+after_success:
+    - coveralls
