@@ -112,8 +112,9 @@ class TaskEngine(object):
 
         # Unsynced tasks
         for taskData in self.tasks:
-            if taskData['paused']or taskData['synced']:
+            if taskData['paused'] or taskData['synced']:
                 continue
 
             self.runTask(taskData['task'])
+
         return True
