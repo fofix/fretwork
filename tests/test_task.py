@@ -24,6 +24,24 @@ from fretwork.task import Task
 from fretwork.task import TaskEngine
 
 
+class Tasker(Task):
+    """ Task for tests """
+    starting = False
+    running = False
+    ticking = None
+
+    def started(self):
+        self.started = True
+
+    def stopped(self):
+        self.started = False
+
+    def run(self, ticks):
+        Task().run(ticks)  # needed to cover Task.run
+        self.running = True
+        self.ticking = ticks
+
+
 class TaskEngineTest(unittest.TestCase):
 
     def setUp(self):
@@ -33,40 +51,43 @@ class TaskEngineTest(unittest.TestCase):
     def test_checkTask(self):
         # no task
         no_task = "no task"
-        self.assertFalse(self.task_engine.checkTask(no_task))
+        self.assertFalse(self.task_engine.checkTask(no_task))  # no task
 
         # one task
         task = Task()
         self.task_engine.tasks.append({'task': task})
-        self.assertTrue(self.task_engine.checkTask(task))
+        self.assertTrue(self.task_engine.checkTask(task))  # one task
 
     def test_addTask(self):
-        task = Task()
+        task = Tasker()
         self.task_engine.addTask(task)
-        self.assertTrue(self.task_engine.checkTask(task))
+        self.assertTrue(self.task_engine.checkTask(task))  # one task
+        self.assertTrue(task.started)  # started
 
     def test_removeTask(self):
         # add one task
-        task = Task()
+        task = Tasker()
         self.task_engine.addTask(task)
-        self.assertTrue(self.task_engine.checkTask(task))
+        self.assertTrue(self.task_engine.checkTask(task))  # one task
+        self.assertTrue(task.started)  # started
 
         # remove the task
         self.task_engine.removeTask(task)
-        self.assertFalse(self.task_engine.checkTask(task))
+        self.assertFalse(self.task_engine.checkTask(task))  # no task
+        self.assertFalse(task.started)  # stopped
 
     def test_pauseTask(self):
         task = Task()
         self.task_engine.addTask(task)
         self.task_engine.pauseTask(task)
-        self.assertTrue(self.task_engine.tasks[0]['paused'])
+        self.assertTrue(self.task_engine.tasks[0]['paused'])  # paused
 
     def test_resumeTask(self):
         task = Task()
         self.task_engine.addTask(task)
-        self.task_engine.pauseTask(task)
-        self.task_engine.resumeTask(task)
-        self.assertFalse(self.task_engine.tasks[0]['paused'])
+        self.task_engine.pauseTask(task)  # paused
+        self.task_engine.resumeTask(task)  # resumed
+        self.assertFalse(self.task_engine.tasks[0]['paused'])  # resumed
 
     def test_exit(self):
         # add tasks
