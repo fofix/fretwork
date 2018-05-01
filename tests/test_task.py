@@ -24,6 +24,11 @@ from fretwork.task import Task
 from fretwork.task import TaskEngine
 
 
+class Enginer(object):
+    """ Engine for tests """
+    tickDelta = 10
+
+
 class Tasker(Task):
     """ Task for tests """
     starting = False
@@ -45,7 +50,7 @@ class Tasker(Task):
 class TaskEngineTest(unittest.TestCase):
 
     def setUp(self):
-        self.engine = object
+        self.engine = Enginer()
         self.task_engine = TaskEngine(self.engine)
 
     def test_checkTask(self):
@@ -89,6 +94,22 @@ class TaskEngineTest(unittest.TestCase):
         self.task_engine.resumeTask(task)  # resumed
         self.assertFalse(self.task_engine.tasks[0]['paused'])  # resumed
 
+    def test_runTask(self):
+        # a task
+        task = Tasker()
+        self.task_engine.addTask(task)
+
+        # runTask: default tick (0)
+        self.task_engine.runTask(task)
+        self.assertTrue(task.running)  # run
+        self.assertEqual(task.ticking, 0)  # tick
+
+        # runTask: random tick
+        tick = 42
+        self.task_engine.runTask(task, tick)
+        self.assertTrue(task.running)  # run
+        self.assertEqual(task.ticking, tick)  # tick
+
     def test_exit(self):
         # add tasks
         task0 = Task()
@@ -100,3 +121,32 @@ class TaskEngineTest(unittest.TestCase):
         self.task_engine.exit()
         self.assertFalse(self.task_engine.checkTask(task0))
         self.assertFalse(self.task_engine.checkTask(task1))
+
+    def test_run(self):
+        # no task
+        ret_no = self.task_engine.run()
+        self.assertFalse(ret_no)
+
+        # synced task
+        task_synced = Tasker()
+        self.task_engine.addTask(task_synced, synced=True)  # sync by default
+        ret_synced = self.task_engine.run()
+        self.assertTrue(ret_synced)
+        self.assertTrue(task_synced.running)  # run
+        self.assertEqual(task_synced.ticking, self.engine.tickDelta)  # tick
+
+        # unsynced task
+        task_unsynced = Tasker()
+        self.task_engine.addTask(task_unsynced, synced=False)
+        ret_unsynced = self.task_engine.run()
+        self.assertTrue(ret_unsynced)
+        self.assertTrue(task_unsynced.running)  # run
+        self.assertEqual(task_unsynced.ticking, 0)  # tick
+
+        # paused task
+        task_paused = Tasker()
+        self.task_engine.addTask(task_paused)
+        self.task_engine.pauseTask(task_paused)
+        ret_paused = self.task_engine.run()
+        self.assertTrue(ret_paused)
+        self.assertFalse(task_paused.running)  # not run
