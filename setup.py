@@ -205,6 +205,7 @@ setup(
     version=version_number,
     description='Game library used by FoFiX, and FoF:R.',
     long_description=long_description,
+    long_description_content_type='text/markdown',
     author='Matthew Sitton and contributors',
     author_email='matthewsitton@gmail.com',
     license='GPLv2+',
