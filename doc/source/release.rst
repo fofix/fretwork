@@ -30,7 +30,6 @@ Linux
 2. Install Python dependencies:
 
 - ``Cython``
-- ``Pillow``
 - ``Pygame``
 - ``PyOpenGL``
 - ``NumPy``
