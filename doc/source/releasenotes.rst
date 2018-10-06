@@ -6,6 +6,15 @@ Release notes
 
 - Pin versions
 - Make the log level customizable
+- Syntax: fix relative imports in the `midi` module
+- Python 3: fix an exception syntax in `midi.EventDispatcher`
+- Python 3: Use python3 imports for `StringIO` and `StringType`
+- Doc: remove the useless `midi` module content
+- Doc: add the `mixstream.VorbisFileMixStream` content
+- Tests: add some tests for `midi.MidiInFile`
+- Tests: add some tests for `midi.DataTypeConverters`
+- Tests: add some tests for the `Task` module
+- Deps: remove `Pillow` from requirements
 
 
 0.3.0 (2017-11-09)
