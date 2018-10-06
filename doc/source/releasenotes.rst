@@ -16,6 +16,8 @@ Release notes
 - Tests: add some tests for the `Task` module
 - Deps: remove `Pillow` from requirements
 
+Details: https://github.com/fofix/fretwork/milestone/2?closed=1
+
 
 0.3.0 (2017-11-09)
 ------------------
@@ -25,6 +27,8 @@ Release notes
 - add docs
 - add tests
 - release on PyPi
+
+Details: https://github.com/fofix/fretwork/milestone/1?closed=1
 
 
 0.2.0 (2015-11-22)
