@@ -6,6 +6,7 @@ Release notes
 
 - Pin versions
 - Make the log level customizable
+- Fix `SDL_mixer` init
 - Syntax: fix relative imports in the `midi` module
 - Python 3: fix an exception syntax in `midi.EventDispatcher`
 - Python 3: Use python3 imports for `StringIO` and `StringType`
