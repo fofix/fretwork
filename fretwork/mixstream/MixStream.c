@@ -86,6 +86,12 @@ MixStream* mix_stream_new(int samprate, int channels, mix_stream_read_cb read_cb
   stream->chunk.volume = MIX_MAX_VOLUME;
   stream->out_speed = 1.0;
 
+  // Init SDL_mixer
+  if (Mix_OpenAudio(44100, AUDIO_S16SYS, 2, 1024) < 0) {
+      dprintf(2, "Error initializing SDL_mixer: %s\n", Mix_GetError());
+      g_free(stream);
+      return NULL;
+  }
   if (!Mix_QuerySpec(&stream->out_freq, &stream->out_format, &stream->out_channels)) {
     g_set_error(err, MIX_STREAM_ERROR, MIX_STREAM_MIXER_UNINIT,
       "SDL_mixer is not initialized");
