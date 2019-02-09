@@ -3,7 +3,11 @@ How to release
 
 Here is the release process for ``fretwork``:
 
-- bump the version on a PR (``fretwork/version.py`` and ``source/conf.py``)
+- bump the version on a PR (``fretwork/version.py`` and ``source/conf.py``)::
+
+   pip install bumpversion
+   bumpversion --allow-dirty part
+
 - make a tag
 - make wheels (see below)
 - upload sources and wheels on GitHub in a new release.
