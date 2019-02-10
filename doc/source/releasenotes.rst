@@ -1,7 +1,7 @@
 Release notes
 =============
 
-0.4.0 (unreleased)
+0.4.0 (2019-02-10)
 ------------------
 
 - Pin versions
