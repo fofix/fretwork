@@ -1,6 +1,12 @@
 Release notes
 =============
 
+1.0.0 (unreleased)
+------------------
+
+Details: https://github.com/fofix/fretwork/milestone/3?closed=1
+
+
 0.4.0 (2019-02-10)
 ------------------
 
