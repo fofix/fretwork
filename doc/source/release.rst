@@ -87,4 +87,4 @@ All
 - Make a wheel::
 
     python.exe setup.py sdist
-    python.exe setup.py bdist_wheel --inplace
+    python.exe setup.py bdist_wheel
