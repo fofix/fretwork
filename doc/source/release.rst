@@ -31,12 +31,10 @@ Linux
 - ``pkg-config``
 - ``portmidi``
 
-2. Install Python dependencies:
+2. Install Python dependencies::
 
-- ``Cython``
-- ``Pygame``
-- ``PyOpenGL``
-- ``NumPy``
+    pip install -r requirements.txt
+
 
 3. Compile extensions::
 

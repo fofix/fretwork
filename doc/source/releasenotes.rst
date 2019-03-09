@@ -4,6 +4,8 @@ Release notes
 1.0.0 (unreleased)
 ------------------
 
+- Deps: add a requirements.txt file
+
 Details: https://github.com/fofix/fretwork/milestone/3?closed=1
 
 
