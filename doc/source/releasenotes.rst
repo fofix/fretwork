@@ -4,6 +4,8 @@ Release notes
 1.0.0 (unreleased)
 ------------------
 
+- Windows: replace `dprintf` with `fdprintf` (MixStream)
+
 Details: https://github.com/fofix/fretwork/milestone/3?closed=1
 
 
