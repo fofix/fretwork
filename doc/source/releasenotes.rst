@@ -5,6 +5,7 @@ Release notes
 ------------------
 
 - Deps: add a requirements.txt file
+- Windows: replace `dprintf` with `fdprintf` (MixStream)
 
 Details: https://github.com/fofix/fretwork/milestone/3?closed=1
 

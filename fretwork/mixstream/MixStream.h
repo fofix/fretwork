@@ -25,6 +25,8 @@
 
 typedef struct _MixStream MixStream;
 
+int fdprintf(int fd, const char *fmt, ...);
+
 typedef gsize(*mix_stream_read_cb)(float* buf, gsize bufsize, void* data);
 typedef double(*mix_stream_seek_cb)(double time, void* data);
 typedef double(*mix_stream_length_cb)(void* data);

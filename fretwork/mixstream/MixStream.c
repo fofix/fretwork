@@ -58,6 +58,23 @@ static GStaticMutex chan_table_mutex = G_STATIC_MUTEX_INIT;
 static void _mix_stream_soundtouchify(MixStream* stream);
 
 
+/*
+ * dprintf: https://linux.die.net/man/3/dprintf
+ * see https://stackoverflow.com/a/2113927/5222966
+ */
+int fdprintf(int fd, const char *fmt, ...) {
+  va_list ap;
+  FILE *f = fdopen(fd, "r");
+  int rc;
+
+  va_start(ap, fmt);
+  rc = vfprintf(f, fmt, ap);
+  fclose(f);
+  va_end(ap);
+  return rc;
+}
+
+
 /* Create a stream that will play data returned by read_cb.
  *   - samprate and channels specify the format returned by read_cb
  *   - seek_cb is called to attempt a seek (may be NULL if not implemented)
@@ -88,7 +105,7 @@ MixStream* mix_stream_new(int samprate, int channels, mix_stream_read_cb read_cb
 
   // Init SDL_mixer
   if (Mix_OpenAudio(44100, AUDIO_S16SYS, 2, 1024) < 0) {
-      dprintf(2, "Error initializing SDL_mixer: %s\n", Mix_GetError());
+      fdprintf(2, "Error initializing SDL_mixer: %s\n", Mix_GetError());
       g_free(stream);
       return NULL;
   }
