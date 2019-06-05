@@ -68,7 +68,7 @@ def find_command(cmd):
 
 def pc_exists(pkg):
     '''Check whether pkg-config thinks a library exists.'''
-    if os.spawnl(os.P_WAIT, pkg_config, 'pkg-config', '--exists', pkg) == 0:
+    if os.spawnl(os.P_WAIT, pkg_config, 'pkg-config', '--print-errors', '--exists', pkg) == 0:
         return True
     else:
         return False
