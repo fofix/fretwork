@@ -2,7 +2,7 @@
 #####################################################################
 #                                                                   #
 # Fretwork                                                          #
-# Copyright (C) 2009-2015 FoFiX Team                                #
+# Copyright (C) 2009-2019 FoFiX Team                                #
 #                                                                   #
 # This program is free software; you can redistribute it and/or     #
 # modify it under the terms of the GNU General Public License       #
@@ -68,10 +68,7 @@ def find_command(cmd):
 
 def pc_exists(pkg):
     '''Check whether pkg-config thinks a library exists.'''
-    if os.spawnl(os.P_WAIT, pkg_config, 'pkg-config', '--print-errors', '--exists', pkg) == 0:
-        return True
-    else:
-        return False
+    return subprocess.call([pkg_config, '--print-errors', '--exists', pkg]) == 0
 
 
 def pc_info(pkg, altnames=[]):
