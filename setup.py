@@ -71,12 +71,13 @@ def pc_exists(pkg):
     return subprocess.call([pkg_config, '--print-errors', '--exists', pkg]) == 0
 
 
-def pc_info(pkg, altnames=[]):
+def pc_info(pkg, altnames=None):
     '''Obtain build options for a library from pkg-config and
     return a dict that can be expanded into the argument list for
     L{distutils.core.Extension}.'''
 
     sys.stdout.write('checking for library %s... ' % pkg)
+    altnames = altnames if altnames is not None else list()
     if not pc_exists(pkg):
         for name in altnames:
             if pc_exists(name):
