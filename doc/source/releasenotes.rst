@@ -5,6 +5,9 @@ Release notes
 ------------------
 
 - Deps: add a requirements.txt file
+- Deps: update Cython version
+- Deps: update NumPy version
+- Deps: do not pin requirements in `setup.py`
 - Windows: replace `dprintf` with `fdprintf` (MixStream)
 - Setup: update contact information
 
