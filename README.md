@@ -1,6 +1,5 @@
 # fretwork
 
-[![Code Health](https://landscape.io/github/fofix/fretwork/master/landscape.svg?style=flat)](https://landscape.io/github/fofix/fretwork/master)
 [![Coverage Status](https://coveralls.io/repos/github/fofix/fretwork/badge.svg?branch=master)](https://coveralls.io/github/fofix/fretwork?branch=master)
 [![Build Status](https://travis-ci.org/fofix/fretwork.svg?branch=master)](https://travis-ci.org/fofix/fretwork)
 [![Documentation Status](https://readthedocs.org/projects/fretwork/badge/?version=latest)](http://fretwork.readthedocs.io/en/latest/?badge=latest)
