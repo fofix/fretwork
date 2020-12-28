@@ -31,3 +31,10 @@ Some parts of `fretwork` are written in C or C++. These must be compiled
 before you can start the game from source:
 
     python setup.py build_ext --inplace --force
+
+
+## Related links
+
+* Read the doc: https://fretwork.readthedocs.io
+* Report bugs: https://github.com/fofix/fretwork/issues
+* Get the latest version: https://pypi.org/project/fretwork
