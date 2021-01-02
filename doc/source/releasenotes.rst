@@ -1,15 +1,20 @@
 Release notes
 =============
 
-1.0.0 (unreleased)
+0.5.0 (unreleased)
 ------------------
 
+- Build: specify numpy versions according to Python versions
+- Build: update classifiers (Python versions 3.7 & 3.8)
 - Deps: add a requirements.txt file
+- Deps: do not pin requirements in `setup.py`
 - Deps: update Cython version
 - Deps: update NumPy version
-- Deps: do not pin requirements in `setup.py`
-- Windows: replace `dprintf` with `fdprintf` (MixStream)
+- Deps: update PyOpenGL version
+- Deps: update Pygame version
+- Doc: fix the Windows dependency pack link in the README file
 - Setup: update contact information
+- Windows: replace `dprintf` with `fdprintf` (MixStream)
 
 Details: https://github.com/fofix/fretwork/milestone/3?closed=1
 
