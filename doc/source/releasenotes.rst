@@ -1,7 +1,7 @@
 Release notes
 =============
 
-0.5.0 (unreleased)
+0.5.0 (2021-01-04)
 ------------------
 
 - Build: specify numpy versions according to Python versions
