@@ -1,0 +1,73 @@
+name: Tests
+
+on:
+  push:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  tests:
+    name: tests on ${{ matrix.python-version }}
+    runs-on: ubuntu-latest
+    continue-on-error: ${{ matrix.experimental }}
+    strategy:
+      fail-fast: true
+      matrix:
+        python-version: [2.7]
+        experimental: [false]
+
+        include:
+          - python-version: 3.6
+            experimental: true
+          - python-version: 3.7
+            experimental: true
+          - python-version: 3.8
+            experimental: true
+          - python-version: 3.9
+            experimental: true
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install python
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install os dependencies
+        run: |
+          sudo apt-get -qq update
+          sudo apt-get install -yq \
+            libportmidi-dev \
+            libsdl-image1.2-dev \
+            libsdl-mixer1.2-dev \
+            libsdl-ttf2.0-dev \
+            libsdl1.2-dev \
+            libsoundtouch-dev \
+            libvorbis-dev
+
+      - name: Install python dependencies
+        run: |
+          pip install coverage coveralls pytest pytest-cov
+          pip install -r requirements.txt
+
+      - name: Run tests on python2
+        if: ${{ matrix.python-version == '2.7' }}
+        run: |
+          python setup.py build_ext --inplace --force
+          python setup.py check
+          pytest --cov=fretwork
+
+      - name: Run tests on python3
+        if: ${{ matrix.python-version != '2.7' }}
+        run: |
+          python setup.py build_ext --inplace --force
+          pytest
+
+      - name: Upload coverage
+        if: ${{ matrix.python-version == '2.7' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: coveralls --service=github

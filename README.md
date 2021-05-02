@@ -2,6 +2,7 @@
 
 [![Coverage Status](https://coveralls.io/repos/github/fofix/fretwork/badge.svg?branch=master)](https://coveralls.io/github/fofix/fretwork?branch=master)
 [![Build Status](https://travis-ci.org/fofix/fretwork.svg?branch=master)](https://travis-ci.org/fofix/fretwork)
+[![Tests Status](https://github.com/fofix/fretwork/actions/workflows/tests.yml/badge.svg?branch=master)](https://github.com/fofix/fretwork/actions/workflows/tests.yml)
 [![Documentation Status](https://readthedocs.org/projects/fretwork/badge/?version=latest)](http://fretwork.readthedocs.io/en/latest/?badge=latest)
 [![PyPI](https://img.shields.io/pypi/v/fretwork.svg)](https://pypi.org/project/fretwork/)
 
