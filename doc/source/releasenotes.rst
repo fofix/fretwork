@@ -4,6 +4,8 @@ Release notes
 1.0.0 (unreleased)
 ------------------
 
+ci: use Github Actions to run tests
+
 Details: https://github.com/fofix/fretwork/milestone/4
 
 
