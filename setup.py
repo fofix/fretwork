@@ -198,6 +198,11 @@ else:
     mixstreamDlls = []
 
 
+needs_pytest = {'pytest', 'test', 'ptr'}.intersection(sys.argv)
+pytest_runner = [
+    "pytest-runner<5.3;python_version<'3.3'",
+    "pytest-runner;python_version>'3.3'",
+] if needs_pytest else []
 setup(
     name='fretwork',
     version=version_number,
@@ -226,7 +231,7 @@ setup(
         'Topic :: Software Development :: Libraries',
     ],
     keywords='music engine fofix frets game',
-    setup_requires=['pytest-runner', 'cython'],
+    setup_requires=['cython'] + pytest_runner,
     install_requires=[
         "Cython>=0.29.2,<3.0",
         "Pygame<2.0",
