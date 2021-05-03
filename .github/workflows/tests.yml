@@ -50,7 +50,7 @@ jobs:
 
       - name: Install python dependencies
         run: |
-          pip install coverage coveralls pytest pytest-cov
+          pip install coverage pytest pytest-cov
           pip install -r requirements.txt
 
       - name: Run tests on python2
@@ -64,10 +64,12 @@ jobs:
         if: ${{ matrix.python-version != '2.7' }}
         run: |
           python setup.py build_ext --inplace --force
-          pytest
+          pytest --cov=fretwork
 
       - name: Upload coverage
-        if: ${{ matrix.python-version == '2.7' }}
+        if: ${{ matrix.python-version == '3.6' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: coveralls --service=github
+        run: |
+          pip install coveralls
+          coveralls --service=github
