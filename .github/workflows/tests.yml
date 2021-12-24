@@ -14,12 +14,10 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        python-version: [2.7]
+        python-version: [3.6]
         experimental: [false]
 
         include:
-          - python-version: 3.6
-            experimental: true
           - python-version: 3.7
             experimental: true
           - python-version: 3.8
@@ -53,17 +51,10 @@ jobs:
           pip install coverage pytest pytest-cov
           pip install -r requirements.txt
 
-      - name: Run tests on python2
-        if: ${{ matrix.python-version == '2.7' }}
+      - name: Run tests
         run: |
           python setup.py build_ext --inplace --force
           python setup.py check
-          pytest --cov=fretwork
-
-      - name: Run tests on python3
-        if: ${{ matrix.python-version != '2.7' }}
-        run: |
-          python setup.py build_ext --inplace --force
           pytest --cov=fretwork
 
       - name: Upload coverage
