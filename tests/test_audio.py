@@ -8,8 +8,11 @@ import pygame
 
 from fretwork.audio import Audio
 from fretwork.audio import Channel
+from fretwork.audio import MicrophonePassthroughStream
 from fretwork.audio import Music
 from fretwork.audio import Sound
+from .utils import TestEngine
+from .utils import TestMicrophone
 
 
 class AudioTest(unittest.TestCase):
@@ -136,3 +139,47 @@ class SoundTest(unittest.TestCase):
         self.assertTrue(self.sound.isPlaying())
         # stop the sound
         self.sound.stop()
+
+
+class MicrophonePassthroughStreamTest(unittest.TestCase):
+
+    def setUp(self):
+        engine = TestEngine()
+        mic = TestMicrophone()
+        self.audio = Audio()
+        self.audio.open()
+        self.mic_passthrough_stream = MicrophonePassthroughStream(engine, mic)
+        self.mic_passthrough_stream.channel = Channel(1)
+
+    def tearDown(self):
+        self.mic_passthrough_stream.stop()
+        self.audio.close()
+
+    def test_play_once(self):
+        self.mic_passthrough_stream.play()
+        self.assertTrue(self.mic_passthrough_stream.playing)
+
+    def test_play_twice(self):
+        self.mic_passthrough_stream.play()
+        self.mic_passthrough_stream.play()
+        self.assertTrue(self.mic_passthrough_stream.playing)
+
+    def test_stop_once(self):
+        self.mic_passthrough_stream.play()
+        self.mic_passthrough_stream.stop()
+        self.assertFalse(self.mic_passthrough_stream.playing)
+
+    def test_stop_twice(self):
+        self.mic_passthrough_stream.play()
+        self.mic_passthrough_stream.stop()
+        self.mic_passthrough_stream.stop()
+        self.assertFalse(self.mic_passthrough_stream.playing)
+
+    def test_setVolume(self):
+        volume = 10
+        self.mic_passthrough_stream.setVolume(volume)
+        self.assertEqual(self.mic_passthrough_stream.volume, volume)
+        # self.assertEqual(self.mic_passthrough_stream.get_volume(), volume)
+
+    def test_run(self):
+        self.mic_passthrough_stream.run(0)

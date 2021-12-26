@@ -22,11 +22,7 @@ import unittest
 
 from fretwork.task import Task
 from fretwork.task import TaskEngine
-
-
-class Enginer(object):
-    """ Engine for tests """
-    tickDelta = 10
+from .utils import TestEngine
 
 
 class Tasker(Task):
@@ -50,7 +46,7 @@ class Tasker(Task):
 class TaskEngineTest(unittest.TestCase):
 
     def setUp(self):
-        self.engine = Enginer()
+        self.engine = TestEngine()
         self.task_engine = TaskEngine(self.engine)
 
     def test_checkTask(self):
