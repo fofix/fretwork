@@ -5,12 +5,14 @@ import unittest
 import time
 
 import pygame
+import pytest
 
 from fretwork.audio import Audio
 from fretwork.audio import Channel
 from fretwork.audio import MicrophonePassthroughStream
 from fretwork.audio import Music
 from fretwork.audio import Sound
+from fretwork.audio import StreamingSound
 from .utils import TestEngine
 from .utils import TestMicrophone
 
@@ -183,3 +185,78 @@ class MicrophonePassthroughStreamTest(unittest.TestCase):
 
     def test_run(self):
         self.mic_passthrough_stream.run(0)
+
+
+class StreamingSoundTest(unittest.TestCase):
+
+    def setUp(self):
+        self.audio = Audio()
+        self.audio.open()
+
+        channel = Channel(1)
+        filename = b"tests/guitar.ogg"
+        self.streaming_sound = StreamingSound(channel, filename)
+
+    def tearDown(self):
+        self.streaming_sound.stop()
+        self.audio.close()
+
+    def test_play(self):
+        self.streaming_sound.play()
+        self.assertTrue(self.streaming_sound.isPlaying())
+
+    def test_stop(self):
+        self.streaming_sound.play()
+        self.streaming_sound.stop()
+        self.assertFalse(self.streaming_sound.isPlaying())
+
+    def test_setVolume(self):
+        self.streaming_sound.play()
+        self.streaming_sound.setVolume(10)
+        self.streaming_sound.stop()
+
+    @pytest.mark.skip(reason="Not implemented")
+    def test_fadeout(self):
+        self.streaming_sound.play()
+        self.streaming_sound.fadeout(0.5)
+        time.sleep(0.2)
+        self.assertTrue(self.streaming_sound.isPlaying())
+        time.sleep(0.5)
+        self.assertFalse(self.streaming_sound.isPlaying())
+
+    def test_get_position(self):
+        self.streaming_sound.play()
+        time.sleep(0.2)
+        position = self.streaming_sound.getPosition()
+        self.assertGreater(position, 0)
+        self.streaming_sound.stop()
+
+    def test_set_position(self):
+        position = 5
+        new_position = self.streaming_sound.setPosition(position)
+
+        self.streaming_sound.play()
+        self.assertEqual(position, new_position)
+        self.assertAlmostEqual(self.streaming_sound.getPosition(), new_position)
+        self.streaming_sound.stop()
+
+    def test_set_wrong_position(self):
+        position = 1000
+        new_position = self.streaming_sound.setPosition(position)
+        self.assertEqual(new_position, -1)
+
+        # XXX: not working
+        # self.streaming_sound.play()
+        # time.sleep(0.2)
+        # self.assertGreater(self.streaming_sound.getPosition(), 0)
+        # self.streaming_sound.stop()
+
+    def test_setPitchBendSemitones(self):
+        self.streaming_sound.play()
+        self.streaming_sound.setPitchBendSemitones(10)
+        self.streaming_sound.stop()
+
+    def test_setSpeed(self):
+        self.streaming_sound.play()
+        self.streaming_sound.setSpeed(2)
+        self.streaming_sound.stop()

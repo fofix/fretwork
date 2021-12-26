@@ -228,7 +228,7 @@ class MicrophonePassthroughStream(Sound, Task):
         self.channel.set_volume(self.volume)
 
 
-class StreamingSound(object):
+class StreamingSound:
     def __init__(self, channel, fileName):
         self._mixstream = VorbisFileMixStream(fileName)
         self._channel = channel
