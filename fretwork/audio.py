@@ -141,7 +141,7 @@ class Music:
         return pygame.mixer.music.get_pos()
 
 
-class Channel(object):
+class Channel:
     def __init__(self, id):
         self.channel = pygame.mixer.Channel(id)
         self.id = id

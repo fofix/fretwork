@@ -99,3 +99,16 @@ class MusicTest(unittest.TestCase):
         time.sleep(0.2)
         self.music.unpause()
         self.assertNotEqual(self.music.getPosition(), position)
+
+
+class ChannelTest(unittest.TestCase):
+
+    def test_init(self):
+        audio = Audio()
+        audio.open()
+
+        channel_id = 1
+        channel = Channel(channel_id)
+        self.assertEqual(channel.id, channel_id)
+
+        audio.close()
