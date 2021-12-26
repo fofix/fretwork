@@ -102,7 +102,7 @@ class Audio:
         pygame.mixer.unpause()
 
 
-class Music(object):
+class Music:
     def __init__(self, fileName):
         pygame.mixer.music.load(fileName)
 

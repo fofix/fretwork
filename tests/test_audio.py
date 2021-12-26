@@ -2,11 +2,13 @@
 # -*- coding: utf-8 -*-
 
 import unittest
+import time
 
 import pygame
 
 from fretwork.audio import Audio
 from fretwork.audio import Channel
+from fretwork.audio import Music
 
 
 class AudioTest(unittest.TestCase):
@@ -49,3 +51,51 @@ class AudioTest(unittest.TestCase):
         channel = audio.getChannel(channel_id)
         self.assertEqual(audio.getChannelCount(), 10)
         self.assertIs(type(channel), Channel)
+
+
+class MusicTest(unittest.TestCase):
+
+    def setUp(self):
+        filename = "tests/guitar.ogg"
+        self.audio = Audio()
+        self.audio.open()
+        self.music = Music(filename)
+
+    def tearDown(self):
+        self.music.stop()
+        self.audio.close()
+
+    def test_setEndEvent_with_event(self):
+        event = pygame.USEREVENT
+        Music.setEndEvent(event)
+        self.assertEqual(pygame.mixer.music.get_endevent(), 24)
+
+    def test_setEndEvent_without_event(self):
+        Music.setEndEvent()
+        self.assertEqual(pygame.mixer.music.get_endevent(), pygame.NOEVENT)
+
+    def test_play(self):
+        self.music.play()
+        self.assertTrue(self.music.isPlaying())
+
+    def test_stop(self):
+        self.music.play()
+        self.music.stop()
+        self.assertFalse(self.music.isPlaying())
+
+    def test_pause(self):
+        self.music.play()
+        time.sleep(0.2)
+        self.music.pause()
+        position = self.music.getPosition()
+        time.sleep(0.2)
+        self.assertEqual(self.music.getPosition(), position)
+
+    def test_unpause(self):
+        self.music.play()
+        time.sleep(0.2)
+        self.music.pause()
+        position = self.music.getPosition()
+        time.sleep(0.2)
+        self.music.unpause()
+        self.assertNotEqual(self.music.getPosition(), position)
