@@ -159,7 +159,7 @@ class Channel:
         self.channel.fadeout(time)
 
 
-class Sound(object):
+class Sound:
     def __init__(self, fileName):
         self.sound = pygame.mixer.Sound(fileName)
 

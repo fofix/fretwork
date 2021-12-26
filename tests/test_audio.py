@@ -9,6 +9,7 @@ import pygame
 from fretwork.audio import Audio
 from fretwork.audio import Channel
 from fretwork.audio import Music
+from fretwork.audio import Sound
 
 
 class AudioTest(unittest.TestCase):
@@ -112,3 +113,26 @@ class ChannelTest(unittest.TestCase):
         self.assertEqual(channel.id, channel_id)
 
         audio.close()
+
+
+class SoundTest(unittest.TestCase):
+
+    def setUp(self):
+        filename = "tests/guitar.ogg"
+        self.audio = Audio()
+        self.audio.open()
+        self.sound = Sound(filename)
+
+    def tearDown(self):
+        self.sound.stop()
+        self.audio.close()
+
+    def test_isPlaying(self):
+        # check if the sound is not playing
+        self.assertFalse(self.sound.isPlaying())
+        # play the sound
+        self.sound.play()
+        # check if it is playing well
+        self.assertTrue(self.sound.isPlaying())
+        # stop the sound
+        self.sound.stop()
