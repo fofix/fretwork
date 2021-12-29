@@ -25,39 +25,15 @@ Miscellaneous functions for helping us handle Unicode correctly in
 the face of what we've done in the past.
 """
 
-# python3 hack
-try:
-    UNICODE_EXISTS = bool(type(unicode))
-except NameError:
-    unicode = str
-
 
 def unicodify(s):
-    """
-    Turns `s` into a Unicode string
+    """Return a unicode string"""
+    if isinstance(s, bytes):
+        return s.decode('utf-8')
 
-    :param s: input string
-    :return:  Unicode version of s
-    """
-    if isinstance(s, unicode):
-        return s
-    elif isinstance(s, str):
-        # not used in python3
-        try:
-            return s.decode('utf-8')
-        except UnicodeDecodeError:
-            return s
-    else:
-        try:
-            return unicode(s)
-        except UnicodeDecodeError:
-            return str(s)
+    return str(s)
 
 
 def utf8(s):
-    '''
-    Turns s into a valid UTF-8 bytestring.
-    @param s: input
-    @return:  UTF-8-encoded version of s
-    '''
-    return unicodify(s).encode('utf-8')
+    """Return a valid UTF-8 bytestring"""
+    return unicodify(s).encode("utf-8")
