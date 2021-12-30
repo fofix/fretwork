@@ -46,12 +46,21 @@ if not hasattr(pygame.mixer, 'music'):
     pygame.mixer.music = sys.modules['pygame.mixer_music']
 
 
-class Audio(object):
+class Audio:
     def pre_open(self, frequency=22050, bits=16, stereo=True, bufferSize=1024):
         pygame.mixer.pre_init(frequency, -bits, stereo and 2 or 1, bufferSize)
         return True
 
     def open(self, frequency=22050, bits=16, stereo=True, bufferSize=1024):
+        """
+        Init the pygame mixer module and let use 10 channels.
+
+        :param frequency: Frequency for the mixer (default: 22050)
+        :param: bits: Bits used for each audio sample (default: 16)
+        :param: stereo: use mono (1) or stereo (2)
+        :param bufferSize: the number of internal samples used in the sound mixer (default: 1024)
+        :returns: True
+        """
 
         try:
             pygame.mixer.quit()
@@ -93,7 +102,7 @@ class Audio(object):
         pygame.mixer.unpause()
 
 
-class Music(object):
+class Music:
     def __init__(self, fileName):
         pygame.mixer.music.load(fileName)
 
@@ -132,7 +141,7 @@ class Music(object):
         return pygame.mixer.music.get_pos()
 
 
-class Channel(object):
+class Channel:
     def __init__(self, id):
         self.channel = pygame.mixer.Channel(id)
         self.id = id
@@ -150,7 +159,7 @@ class Channel(object):
         self.channel.fadeout(time)
 
 
-class Sound(object):
+class Sound:
     def __init__(self, fileName):
         self.sound = pygame.mixer.Sound(fileName)
 
@@ -219,7 +228,7 @@ class MicrophonePassthroughStream(Sound, Task):
         self.channel.set_volume(self.volume)
 
 
-class StreamingSound(object):
+class StreamingSound:
     def __init__(self, channel, fileName):
         self._mixstream = VorbisFileMixStream(fileName)
         self._channel = channel

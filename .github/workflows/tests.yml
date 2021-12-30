@@ -56,6 +56,8 @@ jobs:
           python setup.py build_ext --inplace --force
           python setup.py check
           pytest --cov=fretwork
+        env:
+          SDL_AUDIODRIVER: dummy
 
       - name: Upload coverage
         if: ${{ matrix.python-version == '3.6' }}
