@@ -14,12 +14,10 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        python-version: [3.6]
+        python-version: [3.7]
         experimental: [false]
 
         include:
-          - python-version: 3.7
-            experimental: true
           - python-version: 3.8
             experimental: true
           - python-version: 3.9
@@ -60,7 +58,7 @@ jobs:
           SDL_AUDIODRIVER: dummy
 
       - name: Upload coverage
-        if: ${{ matrix.python-version == '3.6' }}
+        if: ${{ matrix.python-version == '3.7' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
