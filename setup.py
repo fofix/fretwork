@@ -200,8 +200,7 @@ else:
 
 needs_pytest = {'pytest', 'test', 'ptr'}.intersection(sys.argv)
 pytest_runner = [
-    "pytest-runner<5.3;python_version<'3.3'",
-    "pytest-runner;python_version>'3.3'",
+    "pytest-runner",
 ] if needs_pytest else []
 setup(
     name='fretwork',
@@ -220,8 +219,6 @@ setup(
         'Intended Audience :: Developers',
         'License :: OSI Approved :: GNU General Public License v2 or later (GPLv2+)',
         'Programming Language :: Python',
-        'Programming Language :: Python :: 2',
-        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
@@ -236,7 +233,6 @@ setup(
         "Cython>=0.29.2,<3.0",
         "Pygame<2.0",
         "PyOpenGL",
-        "numpy<1.17;python_version<'3.4'",
         "numpy<1.20;python_version=='3.6'",
         "numpy;python_version>'3.6'",
     ],
