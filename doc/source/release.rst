@@ -13,12 +13,6 @@ Here is the release process for ``fretwork``:
 - upload sources and wheels on GitHub in a new release.
 
 
-About wheels:
-
-    Since ``fretwork`` uses ``cython``, one needs to compile extensions in several
-    plateforms. Then, one need to make a wheel for each platform.
-
-
 Linux
 -----
 
@@ -36,18 +30,13 @@ Linux
     pip install -r requirements.txt
 
 
-3. Compile extensions::
-
-    python2 setup.py build_ext --inplace --force
-
-
-4. make a wheel::
+3. make a wheel::
 
     python2 setup.py sdist
     python2 setup.py bdist_wheel --inplace
 
 
-5. repeat 3 and 4 with ``python3``.
+4. repeat 3 and 4 with ``python3``.
 
 
 Windows (32 bits)
@@ -76,11 +65,7 @@ All
 - Copy the Windows dependency pack into ``win32``
 - Install some python dependencies::
 
-    pip.exe install cython setuptools wheel
-
-- Compile extensions::
-
-    python.exe setup.py build_ext --inplace --force
+    pip.exe install setuptools wheel
 
 - Make a wheel::
 

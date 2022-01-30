@@ -13,4 +13,3 @@ recursive-include fretwork *.pyx
 recursive-include tests *.py
 
 prune win32
-prune fretwork/mixstream/_MixStream.c

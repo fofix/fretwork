@@ -25,14 +25,6 @@ You'll need those packages to run tests:
 For Windows, you should use the [win32 dependency pack](https://www.dropbox.com/s/p8xv4pktq670q9i/fofix-win32-deppack-20130304-updated.zip?dl=0) (to unzip into the win32 directory).
 
 
-### Native modules
-
-Some parts of `fretwork` are written in C or C++. These must be compiled
-before you can start the game from source:
-
-    python setup.py build_ext --inplace --force
-
-
 ## Related links
 
 * Read the doc: https://fretwork.readthedocs.io

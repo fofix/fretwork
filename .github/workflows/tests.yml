@@ -53,7 +53,6 @@ jobs:
 
       - name: Run tests
         run: |
-          python setup.py build_ext --inplace --force
           python setup.py check
           pytest --cov=fretwork
         env:

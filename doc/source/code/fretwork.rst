@@ -7,7 +7,6 @@ Subpackages
 .. toctree::
 
     fretwork.midi
-    fretwork.mixstream
 
 Submodules
 ----------
