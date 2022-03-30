@@ -23,7 +23,7 @@
 #####################################################################
 
 
-class Task(object):
+class Task:
     def __init__(self):
         pass
 
@@ -37,7 +37,7 @@ class Task(object):
         pass
 
 
-class TaskEngine(object):
+class TaskEngine:
     def __init__(self, engine):
 
         self.engine = engine
@@ -48,44 +48,44 @@ class TaskEngine(object):
         self.currentTask = None
 
     def checkTask(self, task):
-        '''Check if a task exists'''
+        """Check if a task exists"""
 
         for taskData in self.tasks:
-            if taskData['task'] is task:
+            if taskData["task"] is task:
                 return True
 
         return False
 
     def addTask(self, task, synced=True):
-        '''Add a task'''
+        """Add a task"""
 
         if not self.checkTask(task):
-            self.tasks.append({'task': task, 'synced': synced, 'paused': False})
+            self.tasks.append({"task": task, "synced": synced, "paused": False})
             task.started()
 
     def removeTask(self, task):
-        '''Remove a task'''
+        """Remove a task"""
 
         for taskData in self.tasks:
-            if taskData['task'] is task:
+            if taskData["task"] is task:
                 self.tasks.remove(taskData)
                 task.stopped()
                 break
 
     def pauseTask(self, task):
-        '''Pause a task'''
+        """Pause a task"""
 
         for taskData in self.tasks:
-            if taskData['task'] is task:
-                taskData['paused'] = True
+            if taskData["task"] is task:
+                taskData["paused"] = True
                 break
 
     def resumeTask(self, task):
-        '''Resume a paused task'''
+        """Resume a paused task"""
 
         for taskData in self.tasks:
-            if taskData['task'] is task:
-                taskData['paused'] = False
+            if taskData["task"] is task:
+                taskData["paused"] = False
                 break
 
     def runTask(self, task, tick=0):
@@ -94,27 +94,27 @@ class TaskEngine(object):
         self.currentTask = None
 
     def exit(self):
-        '''Remove all tasks.'''
+        """Remove all tasks"""
         for taskData in list(self.tasks):
-            self.removeTask(taskData['task'])
+            self.removeTask(taskData["task"])
 
     def run(self):
-        '''Run one cycle of the task scheduler engine.'''
+        """Run one cycle of the task scheduler engine"""
         if not self.tasks:
             return False
 
         # Synced tasks
         for taskData in self.tasks:
-            if taskData['paused'] or not taskData['synced']:
+            if taskData["paused"] or not taskData["synced"]:
                 continue
 
-            self.runTask(taskData['task'], tick=self.engine.tickDelta)
+            self.runTask(taskData["task"], tick=self.engine.tickDelta)
 
         # Unsynced tasks
         for taskData in self.tasks:
-            if taskData['paused'] or taskData['synced']:
+            if taskData["paused"] or taskData["synced"]:
                 continue
 
-            self.runTask(taskData['task'])
+            self.runTask(taskData["task"])
 
         return True
