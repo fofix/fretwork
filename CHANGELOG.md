@@ -2,10 +2,11 @@
 
 ## 1.0.0 (unreleased)
 
-- fix(version): use a semver compat version
+- docs: the changelog is now in project root
 - ci: remove Travis CI
 - ci: use GitHub Actions
 - feat(audio): start python 3 transition
+- fix(version): use a semver compat version
 - refactor: mixstream is now a dependency
 
 Links:
