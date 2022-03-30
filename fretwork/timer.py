@@ -61,7 +61,7 @@ class Timer:
 class FpsTimer(Timer):
     def __init__(self):
 
-        super(FpsTimer, self).__init__()
+        super().__init__()
 
         self.frames = 0
         self.fpsTime = 0
