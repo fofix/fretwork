@@ -21,7 +21,6 @@
 #####################################################################
 
 from setuptools import setup
-import sys
 
 from fretwork.version import version_number
 
@@ -33,10 +32,6 @@ except ImportError:
     long_description = open('README.md').read()
 
 
-needs_pytest = {'pytest', 'test', 'ptr'}.intersection(sys.argv)
-pytest_runner = [
-    "pytest-runner",
-] if needs_pytest else []
 setup(
     name='fretwork',
     version=version_number,
@@ -61,12 +56,10 @@ setup(
         'Topic :: Software Development :: Libraries',
     ],
     keywords='music engine fofix frets game',
-    setup_requires=pytest_runner,
     install_requires=[
         "Pygame<2.0",
         "PyOpenGL",
         "numpy;python_version>'3.6'",
     ],
     test_suite="tests",
-    tests_require=["pytest"],
 )
