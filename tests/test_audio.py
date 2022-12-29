@@ -74,7 +74,7 @@ class MusicTest(unittest.TestCase):
     def test_setEndEvent_with_event(self):
         event = pygame.USEREVENT
         Music.setEndEvent(event)
-        self.assertEqual(pygame.mixer.music.get_endevent(), 24)
+        self.assertEqual(pygame.mixer.music.get_endevent(), event)
 
     def test_setEndEvent_without_event(self):
         Music.setEndEvent()
@@ -102,8 +102,8 @@ class MusicTest(unittest.TestCase):
         time.sleep(0.2)
         self.music.pause()
         position = self.music.getPosition()
-        time.sleep(0.2)
         self.music.unpause()
+        time.sleep(0.2)
         self.assertNotEqual(self.music.getPosition(), position)
 
 
