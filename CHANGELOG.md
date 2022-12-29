@@ -2,6 +2,7 @@
 
 ## 1.0.0 (unreleased)
 
+- build(python): support py3.9
 - docs: the changelog is now in project root
 - ci: remove Travis CI
 - ci: use GitHub Actions
