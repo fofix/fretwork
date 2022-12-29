@@ -52,6 +52,7 @@ setup(
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
         'Topic :: Multimedia',
         'Topic :: Multimedia :: Sound/Audio',
         'Topic :: Software Development :: Libraries',
@@ -63,6 +64,7 @@ setup(
         "numpy>=1.14;python_version>'3.7'",
         "numpy>=1.17;python_version>'3.8'",
         "numpy>=1.19;python_version>'3.9'",
+        "numpy>=1.21;python_version>'3.10'",
     ],
     test_suite="tests",
 )
