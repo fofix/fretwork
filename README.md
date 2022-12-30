@@ -12,20 +12,6 @@ Shared code for FoFiX and FoF:R.
 
 ## Setup
 
-### Dependencies
-
-You'll need those packages to run tests:
-* `glib`
-* `sdl 1.2`
-* `sdl_mixer 1.2`
-* `libogg`
-* `libvorbisfile`
-* `libtheora`
-* `soundtouch`
-
-For Windows, you should use the [win32 dependency pack](https://www.dropbox.com/s/p8xv4pktq670q9i/fofix-win32-deppack-20130304-updated.zip?dl=0) (to unzip into the win32 directory).
-
-
 ## Related links
 
 * Read the doc: https://fretwork.readthedocs.io
