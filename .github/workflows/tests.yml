@@ -8,7 +8,7 @@ on:
 
 jobs:
   tests:
-    name: tests on ${{ matrix.python-version }}
+    name: "tests on ${{ matrix.python-version }} (optional: ${{ matrix.experimental }})"
     runs-on: ubuntu-latest
     continue-on-error: ${{ matrix.experimental }}
     strategy:
@@ -38,12 +38,14 @@ jobs:
             libsoundtouch-dev \
             libvorbis-dev
 
-      - name: Install python dependencies
+      - name: "Install python dependencies (optional: ${{ matrix.experimental }})"
+        continue-on-error: ${{ matrix.experimental }}
         run: |
           pip install coverage pytest pytest-cov
           pip install -r requirements.txt
 
-      - name: Run tests
+      - name: "Run tests (optional: ${{ matrix.experimental }})"
+        continue-on-error: ${{ matrix.experimental }}
         run: |
           python setup.py check
           pytest --cov=fretwork
