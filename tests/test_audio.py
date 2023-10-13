@@ -5,7 +5,6 @@ import unittest
 import time
 
 import pygame
-import pytest
 
 from fretwork.audio import Audio
 from fretwork.audio import Channel
@@ -215,7 +214,7 @@ class StreamingSoundTest(unittest.TestCase):
         self.streaming_sound.setVolume(10)
         self.streaming_sound.stop()
 
-    @pytest.mark.skip(reason="Not implemented")
+    @unittest.skip(reason="Not implemented")
     def test_fadeout(self):
         self.streaming_sound.play()
         self.streaming_sound.fadeout(0.5)
