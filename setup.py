@@ -49,9 +49,6 @@ setup(
         'License :: OSI Approved :: GNU General Public License v2 or later (GPLv2+)',
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.7',
-        'Programming Language :: Python :: 3.8',
-        'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: 3.10',
         'Topic :: Multimedia',
         'Topic :: Multimedia :: Sound/Audio',
@@ -61,10 +58,7 @@ setup(
     install_requires=[
         "Pygame>=2.0",
         "PyOpenGL",
-        "numpy>=1.14;python_version>'3.7'",
-        "numpy>=1.17;python_version>'3.8'",
-        "numpy>=1.19;python_version>'3.9'",
-        "numpy>=1.21;python_version>'3.10'",
+        "numpy>=1.21;python_version>='3.10'",
     ],
     test_suite="tests",
 )
